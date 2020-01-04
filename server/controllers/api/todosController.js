@@ -45,6 +45,7 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
+
   Todo
     .findById({ _id: req.params.id })
     .then(dbModel => dbModel.remove())
