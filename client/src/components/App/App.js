@@ -36,6 +36,13 @@ class App extends Component {
     /* This will be used when user is hooked up to back-end. Just uncomment this code and delete or commment the code immediately below this comment.
         this.state = {
           auth: {
+            user: {
+          email: "me@abc.com",
+          name: "Jane Doe",
+          pet: {},
+          task: [],
+        },
+        authToken: "4KAOSDFJ2454509JDF2",
             user: undefined,
             authToken: TokenStore.getToken(),
             onLogin: this.handleLogin,
@@ -45,13 +52,7 @@ class App extends Component {
         */
     this.state = {
       auth: {
-        user: {
-          email: "me@abc.com",
-          name: "Jane Doe",
-          pet: {},
-          task: [],
-        },
-        authToken: "4KAOSDFJ2454509JDF2",
+        user: undefined,
         onLogin: this.handleLogin,
         onLogout: this.handleLogout
       }

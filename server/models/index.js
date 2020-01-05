@@ -11,13 +11,14 @@ const USERS = [
 
 module.exports = {
   Users: {
-    create: function ({ email, password }) {
+    create: async function ({ email, password }) {
       const user = new User({
         id: NEXT_UID++,
         email,
         password
       });
 
+      await user.save();
       USERS.push(user);
 
       return Promise.resolve(user);

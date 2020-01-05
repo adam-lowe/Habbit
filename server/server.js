@@ -13,6 +13,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 //-- Dependencies ------------------------------------------------------------
 const express = require('express');
+const mongoose = require('mongoose');
 const logger = require('morgan');
 
 const { passport } = require('./lib/passport');
@@ -20,6 +21,8 @@ const { passport } = require('./lib/passport');
 //-- Constants ---------------------------------------------------------------
 const PORT = process.env.PORT || 3001;
 const LOG_MODE = process.env.NODE_ENV === 'production' ? 'common' : 'dev';
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbHabbit", { useNewUrlParser: true });
 
 //-- Express -----------------------------------------------------------------
 const app = express();
