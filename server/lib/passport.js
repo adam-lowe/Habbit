@@ -10,12 +10,7 @@ var JWT_STRATEGY_OPTS = {
 
 passport.use(
   new JwtStrategy(JWT_STRATEGY_OPTS, function (jwtPayload, done) {
-<<<<<<< HEAD
-    Users.findOne({ id: jwtPayload.sub })
-=======
-    console.log(jwtPayload.sub)
-    db.Users.findOne({ where: { id: jwtPayload.sub } })
->>>>>>> Login redirect works
+    Users.findOne({ _id: jwtPayload.sub })
       .then(user => done(null, user || false))
       .catch(err => done(err, false));
   })
