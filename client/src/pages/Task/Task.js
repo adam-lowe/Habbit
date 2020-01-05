@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import logo from './logo.svg';
-
 /**
- * This page will be used to show the user dashboard.
+ * This page will be used to create and edit tasks.
+ * Start with create, then add support for editing.
  *  * Convert these functions, so we can use hooks.
  * @todo: Link to state?
  * @todo: Make Components 
  */
-class HomePage extends Component {
+class TaskPage extends Component {
   render() {
     return (
       <div className='Home'>
@@ -33,4 +33,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default TaskPage;
