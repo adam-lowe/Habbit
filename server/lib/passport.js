@@ -10,6 +10,7 @@ var JWT_STRATEGY_OPTS = {
 
 passport.use(
   new JwtStrategy(JWT_STRATEGY_OPTS, function (jwtPayload, done) {
+    console.log(jwtPayload.sub)
     db.Users.findOne({ where: { id: jwtPayload.sub } })
       .then(user => done(null, user || false))
       .catch(err => done(err, false));

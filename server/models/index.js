@@ -19,8 +19,6 @@ module.exports = {
       });
 
       await user.save();
-      USERS.push(user);
-
       return Promise.resolve(user);
     },
 
@@ -28,19 +26,19 @@ module.exports = {
       return Promise.resolve(USERS.map(u => new User(u)));
     },
 
-    findOne: function ({ where }) {
+    findOne: async function ({ where }) {
       let pred;
       if (where.hasOwnProperty('email')) {
-        pred = user => user.email === where.email;
+        pred = { email: where.email} ;
       } else if (where.hasOwnProperty('id')) {
-        pred = user => user.id === where.id
+        pred = { _id:  where.id};
       }
-      const record = USERS.find(pred);
-      if (!record) {
+      const user = await User.findOne(pred);
+      if (!user) {
         return Promise.resolve(undefined);
       }
 
-      return Promise.resolve(new User(record));
+      return Promise.resolve(new User(user));
     }
   },
 
