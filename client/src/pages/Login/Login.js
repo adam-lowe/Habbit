@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 
 import API from '../../lib/API';
 import AuthContext from '../../contexts/AuthContext';
-import LoginForm from '../../components/LoginForm/LoginForm';
 import LoginCard from '../../components/LoginForm/LoginCard';
 
 class Login extends Component {
@@ -15,7 +14,6 @@ class Login extends Component {
   }
 
   handleSubmit = (email, password) => {
-    console.log(email, password);
     API.Users.login(email, password)
       .then(response => response.data)
       .then(({ user, token }) => {
@@ -50,11 +48,6 @@ class Login extends Component {
 
     return (
       <div className='Login'>
-        <div className='row'>
-          <div className='col'>
-            <h1>Login</h1>
-          </div>
-        </div>
         {this.state.error &&
           <div className='row'>
             <div className='col'>
@@ -66,7 +59,6 @@ class Login extends Component {
         <div className='row'>
           <div className='col'>
             <LoginCard onSubmit={this.handleSubmit}/>
-            <LoginForm onSubmit={this.handleSubmit} />
             <div className='mt-3'>Don't have an account? <Link to='/register'>Click here to register.</Link></div>
           </div>
         </div>
