@@ -4,11 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 import API from '../../lib/API';
 import TokenStore from '../../lib/TokenStore';
 import AuthContext from '../../contexts/AuthContext';
-//import Navigation from '../../components/Navigation/Navigation';
+
 import Header from '../../components/Navigation/Header';
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import Home from '../../pages/Home/Home';
-import PetDashboard from '../../pages/Dashboard/Dashboard';
+import PetDashboard from '../../pages/PetDashboard/PetDashboard';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import Task from '../../pages/Task/Task';
