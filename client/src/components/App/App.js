@@ -4,11 +4,11 @@ import { Switch, Route } from 'react-router-dom';
 import API from '../../lib/API';
 import TokenStore from '../../lib/TokenStore';
 import AuthContext from '../../contexts/AuthContext';
-//import Navigation from '../../components/Navigation/Navigation';
+
 import Header from '../../components/Navigation/Header';
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import Home from '../../pages/Home/Home';
-import Dashboard from '../../pages/Dashboard/Dashboard';
+import PetDashboard from '../../pages/PetDashboard/PetDashboard';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import Task from '../../pages/Task/Task';
@@ -36,6 +36,13 @@ class App extends Component {
     /* This will be used when user is hooked up to back-end. Just uncomment this code and delete or commment the code immediately below this comment.
         this.state = {
           auth: {
+            user: {
+          email: "me@abc.com",
+          name: "Jane Doe",
+          pet: {},
+          task: [],
+        },
+        authToken: "4KAOSDFJ2454509JDF2",
             user: undefined,
             authToken: TokenStore.getToken(),
             onLogin: this.handleLogin,
@@ -45,13 +52,7 @@ class App extends Component {
         */
     this.state = {
       auth: {
-        user: {
-          email: "me@abc.com",
-          name: "Jane Doe",
-          pet: {},
-          task: [],
-        },
-        authToken: "4KAOSDFJ2454509JDF2",
+        user: undefined,
         onLogin: this.handleLogin,
         onLogout: this.handleLogout
       }
