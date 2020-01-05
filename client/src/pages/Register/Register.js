@@ -7,7 +7,7 @@ class Register extends Component {
   state = {
     error: ""
   }
-
+//update below to accept new fields
   handleSubmit = (email, password, confirm) => {
     if (password !== confirm) {
       return this.setState({ error: "Passwords do not match." });
