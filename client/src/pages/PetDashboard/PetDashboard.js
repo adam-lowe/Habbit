@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 
 /**
- * This page will be used to show the user dashboard.
- *  * Convert these functions, so we can use hooks.
+ * This page will be used to view pet stats and increase them.
+ * Convert these functions, so we can use hooks.
  * @todo: Link to state?
  * @todo: Make Components 
  */
-class HomePage extends Component {
+class PetDashboard extends Component {
   render() {
     return (
       <div className='Home'>
@@ -33,4 +33,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default PetDashboard;
