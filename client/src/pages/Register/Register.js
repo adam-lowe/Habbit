@@ -26,12 +26,12 @@ export default function Register() {
     redirectToLogin: false
   });
   //update below to accept new fields
-  const handleSubmit = (email, password, confirm) => {
+  const handleSubmit = (fullName, petName, email, password, confirm) => {
     if (password !== confirm) {
       return setState({ error: "Passwords do not match." });
     }
 
-    API.Users.create(email, password)
+    API.Users.create(fullName, petName, email, password)
       .then(response => response.data)
       .then(user => {
         console.log(user);
