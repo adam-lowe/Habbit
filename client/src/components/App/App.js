@@ -8,7 +8,7 @@ import AuthContext from '../../contexts/AuthContext';
 import Header from '../Header/Header';
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import Home from '../../pages/Home/Home';
-import PetDashboard from '../../pages/PetDashboard/PetDashboard';
+import PetDashboard from '../../pages/Dashboard/Dashboard';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import Task from '../../pages/Task/Task';
