@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PetEnhancer from '../../components/PetEnhancer/PetEnhancer';
-// import PetStatus from '../../components/PetStatus';
+import PetStatus from '../../components/PetStatus/PetStatus';
 
 class Dashboard extends Component {
   render() {
@@ -8,6 +8,7 @@ class Dashboard extends Component {
       <div className='Dashboard'>
         <div className='row'>
           <div className='col'>
+            <PetStatus/>
             <PetEnhancer/>
           </div>
         </div>
