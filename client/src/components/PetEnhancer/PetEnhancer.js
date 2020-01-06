@@ -27,7 +27,7 @@ class PetEnhancer extends Component {
 
         return (
             <div className='PetEnhancer'>
-                <div class="alert alert-dark" role="alert">You have {points} care points remaining</div>
+                <div className="alert alert-dark" role="alert">You have {points} care points remaining</div>
                 <div className='card'>
                     <div className='card-body'>
                         <form className='PetEnhancer' onSubmit={this.handleSubmit}>
