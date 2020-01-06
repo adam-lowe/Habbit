@@ -31,14 +31,14 @@ router.post("/", (req, res) => {
         return res.status(422)
       }
       console.log("PET", newPet)
-      // Users.findById(req.body.userID)
-      // .then(foundUser => {
-      //   console.log("FoundUser", foundUser )
-      //   foundUser.pet.id = newPet._id
-      //   foundUser.save()
-        // res.json({newPet, foundUser})
-      // })
-      res.json(newPet)
+      Users.findById(req.body.userID)
+      .then(foundUser => {
+        console.log("FoundUser", foundUser )
+        foundUser.pet.id = newPet._id
+        foundUser.save()
+        res.json({newPet, foundUser})
+      })
+      // res.json(newPet)
     })
     // .catch(err => res.status(422).json(err));
 });

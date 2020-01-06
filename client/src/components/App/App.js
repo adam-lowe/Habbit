@@ -4,7 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import API from '../../lib/API';
 import TokenStore from '../../lib/TokenStore';
 import AuthContext from '../../contexts/AuthContext';
-import Navigation from '../../components/Navigation/Navigation';
+
+import Header from '../Header/Header';
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import Home from '../../pages/Home/Home';
 import PetDashboard from '../../pages/Dashboard/Dashboard';
@@ -35,6 +36,13 @@ class App extends Component {
     /* This will be used when user is hooked up to back-end. Just uncomment this code and delete or commment the code immediately below this comment.
         this.state = {
           auth: {
+            user: {
+          email: "me@abc.com",
+          name: "Jane Doe",
+          pet: {},
+          task: [],
+        },
+        authToken: "4KAOSDFJ2454509JDF2",
             user: undefined,
             authToken: TokenStore.getToken(),
             onLogin: this.handleLogin,
@@ -44,13 +52,7 @@ class App extends Component {
         */
     this.state = {
       auth: {
-        user: {
-          email: "me@abc.com",
-          name: "Jane Doe",
-          pet: {},
-          task: [],
-        },
-        authToken: "4KAOSDFJ2454509JDF2",
+        user: undefined,
         onLogin: this.handleLogin,
         onLogout: this.handleLogout
       }
@@ -72,12 +74,12 @@ class App extends Component {
       <AuthContext.Provider value={this.state.auth}>
         <div className='App'>
           {/* Header */}
-          <Navigation />
+          <Header />
           {/* Pages/Views */}
           <div className='container'>
             <Switch>
               {/* Dashboard - Make Last 
-                  This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /statticdata in e3ach coimponent and build from there.
+                  This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy/static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED
               */}
               <Route exact path='/' component={Home} />

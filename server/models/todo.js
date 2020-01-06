@@ -5,7 +5,6 @@ const todoSchema = new Schema({
     title: { type: String, required: true },
     due: { type: String, required: true },
     description: { type: String, required: true },
-    importance: { type: Number, required: true }
 })
 
 const Todo = mongoose.model("Todo", todoSchema);

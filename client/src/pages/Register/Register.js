@@ -1,48 +1,61 @@
-import React, { Component } from 'react';
+import React from "react";
+import { Link, Redirect } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-import API from '../../lib/API';
+import API from "../../lib/API";
+import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
+import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
 
-class Register extends Component {
-  state = {
-    error: ""
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary
   }
+}));
 
-  handleSubmit = (email, password, confirm) => {
+export default function Register() {
+  const classes = useStyles();
+  const [state, setState] = React.useState({
+    error: "",
+    redirectToLogin: false
+  });
+  //update below to accept new fields
+  const handleSubmit = (email, password, confirm) => {
     if (password !== confirm) {
-      return this.setState({ error: "Passwords do not match." });
+      return setState({ error: "Passwords do not match." });
     }
 
     API.Users.create(email, password)
       .then(response => response.data)
-      .then(user => console.log(user))
-      .catch(err => this.setState({ error: err.message }));
+      .then(user => {
+        console.log(user);
+        setState({ error: "", redirectToLogin: true });
+      })
+      .catch(err => setState({ error: err.message, redirectToLogin: false }));
+  };
+  if (state.redirectToLogin) {
+    return <Redirect to={{ pathname: "/login" }} />;
   }
-
-  render() {
-    return (
-      <div className='Register'>
-        <div className='row'>
-          <div className='col'>
-            <h1>Register</h1>
-          </div>
-        </div>
-        {this.state.error &&
-          <div className='row'>
-            <div className='col'>
-              <div className='alert alert-danger mb-3' role='alert'>
-                {this.state.error}
-              </div>
-            </div>
-          </div>}
-        <div className='row'>
-          <div className='col'>
-            <RegistrationForm onSubmit={this.handleSubmit} />
-          </div>
-        </div>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        {state.error && (
+          <Grid item xs={12}>
+            <ErrorMsg className={classes.margin} message={state.error} />
+          </Grid>
+        )}
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <RegistrationForm onSubmit={handleSubmit} />
+          </Paper>
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
-
-export default Register;

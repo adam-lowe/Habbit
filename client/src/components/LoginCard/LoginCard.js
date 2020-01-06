@@ -10,15 +10,13 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
 import EmailSharpIcon from "@material-ui/icons/EmailSharp";
 import VpnKeySharpIcon from "@material-ui/icons/VpnKeySharp";
-import TagFacesSharpIcon from '@material-ui/icons/TagFacesSharp';
-import PetsSharpIcon from '@material-ui/icons/PetsSharp';
 
 const useStyles = makeStyles(theme => ({
   button: {
     margin: "auto"
   },
   card: {
-    minWidth: 275,
+    minWidth: 275
   },
   form: {
     flexGrow: 1
@@ -36,28 +34,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function RegistrationForm(props) {
+export default function LoginCard(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    email: "",
-    password: "",
-    passwordConfirm: ""
-  });
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setState({
-      ...state,
-      [name]: value
-    });
+    if (name === "email") {
+      setEmail(value);
+    }
+    if (name === "password") {
+      setPassword(value);
+    }
   };
-
   const handleSubmit = event => {
-    const { email, password, passwordConfirm } = state;
-    props.onSubmit(email, password, passwordConfirm);
+    props.onSubmit(email, password);
     event.preventDefault();
   };
+
   return (
-    <div className="RegistrationCard">
+    <div className="LoginCard">
       <Card className={classes.card} variant="outlined">
         <form
           className={classes.form}
@@ -67,62 +63,21 @@ export default function RegistrationForm(props) {
         >
           <CardContent>
             <Typography
-              className="RegistrationTitle"
+              className="LoginTitle"
               color="textSecondary"
               gutterBottom
             >
-              Please Create an Account:
+              Please Log In:
             </Typography>
 
             <Grid container spacing={3}>
-
-            <Grid item xs={12}>
-                <TextField
-                  id="full-name-input"
-                  name="FullName"
-                  type="text"
-                  value={state.name}
-                  label="First and Last Name"
-                  variant="filled"
-                  onChange={handleInputChange}
-                  className={classes.textField}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <TagFacesSharpIcon />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  id="pet-name-input"
-                  name="PetName"
-                  type="text"
-                  value={state.name}
-                  label="What would you like to name your pet?"
-                  variant="filled"
-                  onChange={handleInputChange}
-                  className={classes.textField}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <PetsSharpIcon />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   id="email-input"
                   name="email"
                   type="email"
-                  value={state.email}
-                  label="Email"
+                  value={email}
+                  label="Username"
                   variant="filled"
                   onChange={handleInputChange}
                   className={classes.textField}
@@ -141,27 +96,8 @@ export default function RegistrationForm(props) {
                   id="password-input"
                   name="password"
                   type="password"
-                  value={state.password}
+                  value={password}
                   label="Password"
-                  variant="filled"
-                  onChange={handleInputChange}
-                  className={classes.textField}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <VpnKeySharpIcon />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="password-confirm-input"
-                  name="passwordConfirm"
-                  type="password"
-                  value={state.passwordConfirm}
-                  label="Confirm Password"
                   variant="filled"
                   onChange={handleInputChange}
                   className={classes.textField}
@@ -184,7 +120,7 @@ export default function RegistrationForm(props) {
               variant="outlined"
               color="primary"
             >
-              Register
+              Log In
             </Button>
           </CardActions>
         </form>
