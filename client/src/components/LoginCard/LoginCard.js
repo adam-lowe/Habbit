@@ -7,12 +7,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import EmailSharpIcon from "@material-ui/icons/EmailSharp";
 import VpnKeySharpIcon from "@material-ui/icons/VpnKeySharp";
 
 const useStyles = makeStyles(theme => ({
+  button: {
+    margin: "auto"
+  },
   card: {
     minWidth: 275
   },
@@ -112,6 +114,7 @@ export default function LoginCard(props) {
           </CardContent>
           <CardActions>
             <Button
+              className={classes.button}
               type="submit"
               size="large"
               variant="outlined"
