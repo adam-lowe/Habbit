@@ -1,42 +1,43 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const { petSchema } = require("./pet");
+const { todoSchema } = require("./todo");
+
 const UserSchema = new Schema({
+  fullName: {
+    type: String,
+    trim: true,
+    required: "First and last name is required"
+  },
   email: {
     type: String,
     trim: true,
-    required: 'Email address is required'
+    required: "Email address is required"
   },
   password: {
     type: String,
     trim: true,
-    required: 'A password is required',
+    required: "A password is required",
     validate: [
-      function (input) {
-        return input.length >= 4
+      function(input) {
+        return input.length >= 4;
       },
-      'Password should be four characters or longer'
+      "Password should be four characters or longer"
     ]
   },
-  todo: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Todo"
-    }
-  ],
-  pet: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Pet"
-    }
-  }
-})
+  todos: [todoSchema],
+  pet: petSchema
+});
 
 class newUser {
-  constructor({ id, email, password }) {
-    this.id = id;
+  constructor({ _id, fullName, email, password, pet, todos }) {
+    this._id = _id;
+    this.fullName = fullName;
     this.email = email;
     this.password = password;
+    this.todos = todos;
+    this.pet = pet;
   }
 
   comparePassword(challenge) {
@@ -45,7 +46,6 @@ class newUser {
 }
 
 UserSchema.loadClass(newUser);
-let User = mongoose.model('User', UserSchema);
-
+let User = mongoose.model("User", UserSchema);
 
 module.exports = User;

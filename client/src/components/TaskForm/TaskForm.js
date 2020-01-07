@@ -10,8 +10,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
 import EmailSharpIcon from "@material-ui/icons/EmailSharp";
 import VpnKeySharpIcon from "@material-ui/icons/VpnKeySharp";
-import TagFacesSharpIcon from '@material-ui/icons/TagFacesSharp';
 import PetsSharpIcon from '@material-ui/icons/PetsSharp';
+import ShortTextSharpIcon from '@material-ui/icons/ShortTextSharp';
+import EventNoteSharpIcon from '@material-ui/icons/EventNoteSharp';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -36,14 +37,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function RegistrationForm(props) {
+export default function TaskForm(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    fullName: "",
-    petName: "",
-    email: "",
-    password: "",
-    passwordConfirm: ""
+    title: "",
+    dueDate: "",
+    description: ""
   });
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -54,12 +53,12 @@ export default function RegistrationForm(props) {
   };
 
   const handleSubmit = event => {
-    const {fullName, petName, email, password, passwordConfirm } = state;
-    props.onSubmit(fullName, petName, email, password, passwordConfirm);
     event.preventDefault();
+    const { title, dueDate, description } = state;
+    props.onSubmit(title, dueDate, description);
   };
   return (
-    <div className="RegistrationCard">
+    <div className="TaskCard">
       <Card className={classes.card} variant="outlined">
         <form
           className={classes.form}
@@ -69,29 +68,30 @@ export default function RegistrationForm(props) {
         >
           <CardContent>
             <Typography
-              className="RegistrationTitle"
+              className="TaskTitle"
               color="textSecondary"
+              variant="h3" 
               gutterBottom
             >
-              Please Create an Account:
+              Create a New Task:
             </Typography>
 
             <Grid container spacing={3}>
 
             <Grid item xs={12}>
                 <TextField
-                  id="full-name-input"
-                  name="fullName"
+                  id="task-title-input"
+                  name="title"
                   type="text"
-                  value={state.name}
-                  label="First and Last Name"
+                  value={state.title}
+                  label="Task Title"
                   variant="filled"
                   onChange={handleInputChange}
                   className={classes.textField}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <TagFacesSharpIcon />
+                        <ShortTextSharpIcon />
                       </InputAdornment>
                     )
                   }}
@@ -100,18 +100,18 @@ export default function RegistrationForm(props) {
 
               <Grid item xs={12}>
                 <TextField
-                  id="pet-name-input"
-                  name="petName"
-                  type="text"
-                  value={state.name}
-                  label="What would you like to name your pet?"
+                  id="due-date-input"
+                  name="dueDate"
+                  type="datetime-local"
+                  value={state.dueDate}
+                  label="Task must be completed by:"
                   variant="filled"
                   onChange={handleInputChange}
                   className={classes.textField}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <PetsSharpIcon />
+                        <EventNoteSharpIcon />
                       </InputAdornment>
                     )
                   }}
@@ -120,11 +120,11 @@ export default function RegistrationForm(props) {
 
               <Grid item xs={12}>
                 <TextField
-                  id="email-input"
-                  name="email"
-                  type="email"
-                  value={state.email}
-                  label="Email"
+                  id="task-description-input"
+                  name="description"
+                  type="text"
+                  value={state.description}
+                  label="Description"
                   variant="filled"
                   onChange={handleInputChange}
                   className={classes.textField}
@@ -138,44 +138,6 @@ export default function RegistrationForm(props) {
                 />
               </Grid>
 
-              <Grid item xs={12}>
-                <TextField
-                  id="password-input"
-                  name="password"
-                  type="password"
-                  value={state.password}
-                  label="Password"
-                  variant="filled"
-                  onChange={handleInputChange}
-                  className={classes.textField}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <VpnKeySharpIcon />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="password-confirm-input"
-                  name="passwordConfirm"
-                  type="password"
-                  value={state.passwordConfirm}
-                  label="Confirm Password"
-                  variant="filled"
-                  onChange={handleInputChange}
-                  className={classes.textField}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <VpnKeySharpIcon />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
             </Grid>
           </CardContent>
           <CardActions>
@@ -186,7 +148,7 @@ export default function RegistrationForm(props) {
               variant="outlined"
               color="primary"
             >
-              Register
+              Create Task
             </Button>
           </CardActions>
         </form>

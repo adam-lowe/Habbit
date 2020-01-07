@@ -17,5 +17,9 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.39",
+    "rc-progress": "^2.5.2"
   }
 }
