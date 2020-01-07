@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
 import API from "../../lib/API";
+import AuthContext from '../../contexts/AuthContext';
 import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
 import TaskForm from "../../components/TaskForm/TaskForm";
 
@@ -21,21 +22,15 @@ const useStyles = makeStyles(theme => ({
 
 export default function Task() {
   const classes = useStyles();
+  const authContext = React.useContext(AuthContext);
   const [state, setState] = React.useState({
     error: ""
   });
   //update below to accept new fields
   const handleSubmit = (title, dueDate, description) => {
-  
-    API.Tasks.createOne(title, dueDate, description)
-      .then(response => response.data)
-      .catch(err => {
-        if (err.response.status === 401) {
-          return this.setState({ error: "Unauthorized. Please login." });
-        }
-
-        console.log(err);
-      })
+    const user = authContext.user;
+    user.todos.push({title, dueDate, description}); 
+    authContext.updateUser(user);
   };
 
   return (
