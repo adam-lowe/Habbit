@@ -26,9 +26,9 @@ class App extends Component {
 
     this.updateUser = (user) => {
       API.Users.updateMe(this.state.auth.authToken, user)
-      .then(response => response.data)
-      .then(user => this.setState(prevState => ({ auth: { ...prevState.auth, user } })))
-      .catch(err => console.log(err));
+        .then(response => response.data)
+        .then(user => this.setState(prevState => ({ auth: { ...prevState.auth, user } })))
+        .catch(err => console.log(err));
     };
 
     this.handleLogin = (user, authToken) => {
@@ -85,38 +85,38 @@ class App extends Component {
           <Header />
           {/* Pages/Views */}
           <div className='container'>
-            <Switch>
-              {/* Dashboard - Make Last 
+              <Switch>
+                {/* Dashboard - Make Last 
                   This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy/static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED
               */}
-              <Route exact path='/' component={Home} />
-              {/* Login */}
-              <Route path='/login' component={Login} />
-              {/* User Registration */}
-              <Route path='/register' component={Register} />
-              {/* Create Task
+                <Route exact path='/' component={Home} />
+                {/* Login */}
+                <Route path='/login' component={Login} />
+                {/* User Registration */}
+                <Route path='/register' component={Register} />
+                {/* Create Task
                   This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED
                */}
-              <PrivateRoute path='/task' component={Task} />
-              {/* Edit Task
+                <PrivateRoute path='/task' component={Task} />
+                {/* Edit Task
                   This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED
                */}
-              <Route path='/task/:id' component={Task} />
-              {/* Pet Dashboard 
+                <Route path='/task/:id' component={Task} />
+                {/* Pet Dashboard 
                   This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED
               */}
-              <Route path='/my-pet' component={PetDashboard} />
-              {/* Dummy Route
+                <Route path='/my-pet' component={PetDashboard} />
+                {/* Dummy Route
                   Use to test authentication. Can be deleted after. Provides example of private route creation
                     REMOVE THIS WHEN ROUTE IS COMPLETED
               */}
-              <PrivateRoute path='/secret' component={Secret} />
-              <Route component={NotFound} />
-            </Switch>
+                <PrivateRoute path='/secret' component={Secret} />
+                <Route component={NotFound} />
+              </Switch>
           </div>
         </div>
       </AuthContext.Provider>

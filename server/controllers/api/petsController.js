@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const Pet = require("../../models/pet");
 const Users = require("../../models/user");
+const { JWTVerifier } = require('../../lib/passport');
 
-router.get("/", (req, res) => {
+router.get("/", JWTVerifier, (req, res) => {
   Pet
     .find()
     .sort({ date: -1 })
@@ -10,14 +11,14 @@ router.get("/", (req, res) => {
     .catch(err => res.status(422).json(err));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", JWTVerifier, (req, res) => {
   Pet
     .findById(req.params.id)
     .then(foundPet => res.json(foundPet))
     .catch(err => res.status(422).json(err));
 });
 
-router.post("/", (req, res) => {
+router.post("/", JWTVerifier, (req, res) => {
   console.log("BODY", req.body)
   console.log("Current", req.body.userID)
   const petObj = {
@@ -43,14 +44,14 @@ router.post("/", (req, res) => {
     // .catch(err => res.status(422).json(err));
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", JWTVerifier, (req, res) => {
   Pet
     .findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", JWTVerifier, (req, res) => {
   Pet
     .findById({ _id: req.params.id })
     .then(dbModel => dbModel.remove())
