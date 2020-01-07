@@ -27,13 +27,15 @@ export default function Task() {
   //update below to accept new fields
   const handleSubmit = (title, dueDate, description) => {
   
-    // API.Users.create(email, password)
-    //   .then(response => response.data)
-    //   .then(user => {
-    //     console.log(user);
-    //     setState({ error: "", redirectToLogin: true });
-    //   })
-    //   .catch(err => setState({ error: err.message, redirectToLogin: false }));
+    API.Tasks.createOne(title, dueDate, description)
+      .then(response => response.data)
+      .catch(err => {
+        if (err.response.status === 401) {
+          return this.setState({ error: "Unauthorized. Please login." });
+        }
+
+        console.log(err);
+      })
   };
 
   return (

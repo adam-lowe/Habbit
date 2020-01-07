@@ -81,7 +81,7 @@ export default function TaskForm(props) {
             <Grid item xs={12}>
                 <TextField
                   id="task-title-input"
-                  name="TaskTitle"
+                  name="title"
                   type="text"
                   value={state.title}
                   label="Task Title"
@@ -101,7 +101,7 @@ export default function TaskForm(props) {
               <Grid item xs={12}>
                 <TextField
                   id="due-date-input"
-                  name="DueDate"
+                  name="dueDate"
                   type="datetime-local"
                   value={state.dueDate}
                   label="Task must be completed by:"
@@ -121,7 +121,7 @@ export default function TaskForm(props) {
               <Grid item xs={12}>
                 <TextField
                   id="task-description-input"
-                  name="TaskDescription"
+                  name="description"
                   type="text"
                   value={state.description}
                   label="Description"
@@ -148,7 +148,7 @@ export default function TaskForm(props) {
               variant="outlined"
               color="primary"
             >
-              Register
+              Create Task
             </Button>
           </CardActions>
         </form>
