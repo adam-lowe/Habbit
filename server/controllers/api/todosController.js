@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const Todo = require("../../models/todo");
 const Users = require("../../models/user");
+const { JWTVerifier } = require('../../lib/passport');
 
-router.get("/", (req, res) => {
+router.get("/", JWTVerifier, (req, res) => {
   Todo
     .find()
     .sort({ date: -1 })
@@ -10,21 +11,21 @@ router.get("/", (req, res) => {
     .catch(err => res.status(422).json(err));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", JWTVerifier, (req, res) => {
   Todo
     .findById(req.params.id)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
 
-router.post("/", (req, res) => {
+router.post("/", JWTVerifier, (req, res) => {
   const todoObj = {
     title: req.body.title,
     due: req.body.due,
     description: req.body.description,
   }
   Todo
-    .create(todoObj, (err, newTodo) => {
+    .create(todoObj, JWTVerifier, (err, newTodo) => {
       if (err) {console.log(err)}
       Users.findById(req.body.userID)
       .then(foundUser => {
@@ -33,18 +34,18 @@ router.post("/", (req, res) => {
         res.json({newTodo, foundUser})
       })
     })
-    .then(dbModel => res.json(dbModel))
+    // .then(dbModel => res.json(dbModel))
     // .catch(err => res.status(422).json(err));
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", JWTVerifier, (req, res) => {
   Todo
     .findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", JWTVerifier, (req, res) => {
 
   Todo
     .findById({ _id: req.params.id })
