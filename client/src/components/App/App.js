@@ -8,7 +8,7 @@ import AuthContext from '../../contexts/AuthContext';
 import Header from '../Header/Header';
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import Home from '../../pages/Home/Home';
-import PetDashboard from '../../pages/PetDashboard/PetDashboard';
+import PetDashboard from '../../pages/Dashboard/Dashboard';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import Task from '../../pages/Task/Task';
@@ -23,6 +23,13 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.updateUser = (user) => {
+      API.Users.updateMe(this.state.auth.authToken, user)
+      .then(response => response.data)
+      .then(user => this.setState(prevState => ({ auth: { ...prevState.auth, user } })))
+      .catch(err => console.log(err));
+    };
 
     this.handleLogin = (user, authToken) => {
       TokenStore.setToken(authToken);
@@ -53,6 +60,7 @@ class App extends Component {
     this.state = {
       auth: {
         user: undefined,
+        updateUser: this.updateUser,
         onLogin: this.handleLogin,
         onLogout: this.handleLogout
       }
@@ -91,7 +99,7 @@ class App extends Component {
                   This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED
                */}
-              <Route path='/task' component={Task} />
+              <PrivateRoute path='/task' component={Task} />
               {/* Edit Task
                   This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED

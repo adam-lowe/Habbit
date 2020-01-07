@@ -6,9 +6,9 @@ const { JWTVerifier } = require('../../lib/passport');
 const jwt = require('jsonwebtoken');
 
 usersController.post('/', (req, res) => {
-  const { email, password } = req.body;
+  const { fullName, email, password, pet } = req.body;
 
-  Users.create({ email, password })
+  Users.create({ fullName, email, password, pet})
     .then(user => res.json(user))
     .catch(err => res.json(err));
 });
@@ -32,5 +32,17 @@ usersController.post('/login', (req, res) => {
       });
     });
 });
+
+usersController.put('/me/:id',(req, res) => {
+  console.log(req.body);
+  Users
+    .findOneAndUpdate({ _id: req.params.id }, req.body)
+    .then(user => {
+      delete user.password;
+      res.json(user);
+    })
+    .catch(err => res.status(422).json(err));
+
+} )
 
 module.exports = usersController;

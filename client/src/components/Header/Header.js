@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -80,12 +81,14 @@ export default function MenuAppBar() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Dashboard", "Create Task", "My Pet"].map((text, index) => (
-          <ListItem button key={text}>
+        {[{text:"Dashboard", url: '/'}, {text:"Create Task", url: 'task'}, {text:"My Pet", url: 'my-pet'}].map((menuItem, index) => (
+          <ListItem button key={menuItem.text}>
+            <Link to={menuItem.url}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={menuItem.text} />
+            </Link>
           </ListItem>
         ))}
       </List>

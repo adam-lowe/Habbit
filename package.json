@@ -19,6 +19,7 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "materialize": "^1.0.0"
+    "@material-ui/lab": "^4.0.0-alpha.39",
+    "rc-progress": "^2.5.2"
   }
 }
