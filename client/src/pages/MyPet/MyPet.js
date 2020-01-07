@@ -3,7 +3,7 @@ import PetEnhancer from '../../components/PetEnhancer/PetEnhancer';
 import PetStatus from '../../components/PetStatus/PetStatus';
 import TaskList from '../../components/TaskList/TaskList';
 
-class Dashboard extends Component {
+class MyPet extends Component {
   render() {
     return (
       <div className='Dashboard'>
@@ -19,4 +19,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default MyPet;

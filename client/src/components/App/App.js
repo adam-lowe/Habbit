@@ -8,7 +8,7 @@ import AuthContext from '../../contexts/AuthContext';
 import Header from '../Header/Header';
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import Home from '../../pages/Home/Home';
-import PetDashboard from '../../pages/Dashboard/Dashboard';
+import MyPet from '../../pages/MyPet/MyPet';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import Task from '../../pages/Task/Task';
@@ -109,8 +109,8 @@ class App extends Component {
                   This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
                     REMOVE THIS WHEN ROUTE IS COMPLETED
               */}
-                <Route path='/my-pet' component={PetDashboard} />
-                {/* Dummy Route
+              <Route path='/my-pet' component={MyPet} />
+              {/* Dummy Route
                   Use to test authentication. Can be deleted after. Provides example of private route creation
                     REMOVE THIS WHEN ROUTE IS COMPLETED
               */}

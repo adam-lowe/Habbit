@@ -1,10 +1,8 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-import API from "../../lib/API";
 import AuthContext from '../../contexts/AuthContext';
 import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
 import TaskForm from "../../components/TaskForm/TaskForm";
