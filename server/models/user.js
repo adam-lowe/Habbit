@@ -31,8 +31,8 @@ const UserSchema = new Schema({
 });
 
 class newUser {
-  constructor({ id, fullName, email, password, pet, todos }) {
-    this.id = id;
+  constructor({ _id, fullName, email, password, pet, todos }) {
+    this._id = _id;
     this.fullName = fullName;
     this.email = email;
     this.password = password;

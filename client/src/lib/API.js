@@ -11,7 +11,15 @@ export default {
     },
 
     getMe: function (authToken) {
-      return axios.get('/api/users/me', {
+      return axios.get(`/api/users/me/`, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+    },
+
+    updateMe: function (authToken, user) {
+      return axios.put(`/api/users/me/${user._id}`, user, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
@@ -59,11 +67,11 @@ export default {
     },
     // Saves a task to the database
     createOne: function (authToken, todo) {
-      return axios.post("/api/todos", {
+      return axios.post("/api/todos", todo, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
-      }, todo);
+      });
     },
     updateOne: function (authToken, todo) {
       return axios.put("/api/todos", {
@@ -101,18 +109,18 @@ export default {
     },
     // Saves a book to the database
     createOne: function (authToken, pet) {
-      return axios.post("/api/pets", {
+      return axios.post("/api/pets", pet, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
-      }, pet);
+      });
     },
     updateOne: function (authToken, pet) {
-      return axios.put("/api/pets", {
+      return axios.put("/api/pets", pet, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
-      }, pet);
+      });
     }
   }
 }

@@ -53,9 +53,9 @@ export default function TaskForm(props) {
   };
 
   const handleSubmit = event => {
+    event.preventDefault();
     const { title, dueDate, description } = state;
     props.onSubmit(title, dueDate, description);
-    event.preventDefault();
   };
   return (
     <div className="TaskCard">
