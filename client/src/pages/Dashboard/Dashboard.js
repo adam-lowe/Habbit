@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PetEnhancer from '../../components/PetEnhancer/PetEnhancer';
 import PetStatus from '../../components/PetStatus/PetStatus';
+import TaskList from '../../components/TaskList/TaskList';
 
 class Dashboard extends Component {
   render() {
@@ -10,6 +11,7 @@ class Dashboard extends Component {
           <div className='col'>
             <PetStatus/>
             <PetEnhancer/>
+            <TaskList/>
           </div>
         </div>
       </div>
