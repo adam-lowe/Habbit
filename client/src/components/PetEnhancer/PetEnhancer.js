@@ -1,74 +1,80 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import { Alert } from '@material-ui/lab';
+import TextField from "@material-ui/core/TextField";
 
-class PetEnhancer extends Component {
-    state = {
+const useStyles = makeStyles(theme => ({
+    button: {
+        margin: 10
+    },
+    card: {
+        minWidth: 275,
+        margin: 20
+    },
+    form: {
+      flexGrow: 1
+    },
+    textField: {
+      width: "90%",
+      margin: 15
+    }
+}));
+
+export default function PetEnhancer(props) {
+    const classes = useStyles();
+    const [state, setState] = React.useState({
         points: 0,
         feedPoints: 0,
         playPoints: 0
-    };
-
-    handleInputChange = event => {
+    });
+    const handleInputChange = event => {
         const { name, value } = event.target;
-
-        this.setState({
+        setState({
+            ...state,
             [name]: value
         });
-    }
+    };
 
-    handleSubmit = event => {
-        const { feedPoints, playPoints } = this.state;
-
-        this.props.onSubmit(feedPoints, playPoints);
+    const handleSubmit = event => {
+        const { feedPoints, playPoints } = state;
+        props.onSubmit(feedPoints, playPoints);
         event.preventDefault();
-    }
+    };
 
-    render() {
-        const { feedPoints, playPoints, points } = this.state;
+    return (
+        <div className='PetEnhancer'>
+            <Card className={classes.card}>
+                <Alert severity="info">You have {state.points} points left</Alert>
+                <CardContent>
+                    <form className='PetEnhancer' onSubmit={handleSubmit}>
+                            <TextField
+                                label='Feed'
+                                id='Feed'
+                                type='number'
+                                name='feedPoints'
+                                value={state.feedPoints}
+                                variant="filled"
+                                onChange={handleInputChange}
+                                className={classes.textField}
+                            />
+                            <TextField
+                                label='play'
+                                id='play'
+                                type='number'
+                                name='playPoints'
+                                value={state.playPoints}
+                                variant="filled"
+                                onChange={handleInputChange}
+                                className={classes.textField}
+                            />
 
-        return (
-            <div className='PetEnhancer'>
-                <div className="alert alert-dark" role="alert">You have {points} care points remaining</div>
-                <div className='card'>
-                    <div className='card-body'>
-                        <form className='PetEnhancer' onSubmit={this.handleSubmit}>
-                            <div className='input-group mb-3'>
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text">Feed</span>
-                                </div>
-                                <input
-                                    className='form-control'
-                                    id='Feed'
-                                    type='number'
-                                    name='feedPoints'
-                                    placeholder=''
-                                    value={feedPoints}
-                                    onChange={this.handleInputChange}
-                                />
-                            </div>
-
-                            <div className='input-group mb-3'>
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text">Play</span>
-                                </div>
-                                <input
-                                    className='form-control'
-                                    id='play'
-                                    type='number'
-                                    name='playPoints'
-                                    placeholder=''
-                                    value={playPoints}
-                                    onChange={this.handleInputChange}
-                                />
-                            </div>
-
-                            <button className='btn btn-primary' type='submit'>Care For Pet</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+                        <Button className={classes.button} type="submit" size="large" variant="outlined" color="primary">Care For Pet</Button>
+                    </form>
+                </CardContent>
+            </Card>
+        </div>
+    );
 }
-
-export default PetEnhancer;
-
