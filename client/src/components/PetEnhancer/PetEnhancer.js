@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import { Alert } from '@material-ui/lab';
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -47,7 +47,18 @@ export default function PetEnhancer(props) {
     return (
         <div className='PetEnhancer'>
             <Card className={classes.card}>
-                <Alert severity="info">You have {state.points} points left</Alert>
+            {/* {state.error && (
+          <Grid item xs={12}>
+            <ErrorMsg className={classes.margin} message={state.error} />
+          </Grid>
+        )} */}
+            <Typography
+              className="PointsTotal"
+              color="textSecondary"
+              gutterBottom
+            >
+              You have {state.points} points left
+            </Typography>
                 <CardContent>
                     <form className='PetEnhancer' onSubmit={handleSubmit}>
                             <TextField

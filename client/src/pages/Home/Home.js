@@ -11,6 +11,8 @@ import Grid from "@material-ui/core/Grid";
 
 import AuthContext from '../../contexts/AuthContext';
 import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
+import PetStatus from '../../components/PetStatus/PetStatus';
+import TaskList from '../../components/TaskList/TaskList';
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,18 +42,18 @@ const useStyles = makeStyles(theme => ({
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        {state.error && (
+        {/* {state.error && (
           <Grid item xs={12}>
             <ErrorMsg className={classes.margin} message={state.error} />
           </Grid>
-        )}
-        <Grid item xs={12}>
+        )} */}
+        <Grid item xs={12} md={3}>
           <Paper className={classes.paper}>
+            <PetStatus/>
           </Paper>
         </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-          </Paper>
+        <Grid item xs={12} md={8}>
+          <TaskList/>
         </Grid>
       </Grid>
     </div>

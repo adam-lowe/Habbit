@@ -20,8 +20,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import HomeSharpIcon from '@material-ui/icons/HomeSharp';
+import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
+import PetsIcon from '@material-ui/icons/Pets';
 
 import AuthContext from "../../contexts/AuthContext";
 
@@ -85,7 +86,7 @@ export default function MenuAppBar() {
           <ListItem button key={menuItem.text}>
             <Link to={menuItem.url}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {[HomeSharpIcon, AssignmentSharpIcon, PetsIcon]}
             </ListItemIcon>
             <ListItemText primary={menuItem.text} />
             </Link>
