@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const bcrypt = require("bcrypt");
 const { petSchema } = require("./pet");
 const { todoSchema } = require("./todo");
 
@@ -27,7 +27,9 @@ const UserSchema = new Schema({
     ]
   },
   todos: [todoSchema],
-  pet: petSchema
+  pet: petSchema,
+
+
 });
 
 class newUser {
@@ -41,7 +43,7 @@ class newUser {
   }
 
   comparePassword(challenge) {
-    return this.password === challenge;
+    return bcrypt.compare(this.password, challenge)
   }
 }
 
