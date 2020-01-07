@@ -20,9 +20,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import HomeSharpIcon from '@material-ui/icons/HomeSharp';
-import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
-import PetsIcon from '@material-ui/icons/Pets';
+import HomeSharpIcon from "@material-ui/icons/HomeSharp";
+import AssignmentSharpIcon from "@material-ui/icons/AssignmentSharp";
+import PetsIcon from "@material-ui/icons/Pets";
 
 import AuthContext from "../../contexts/AuthContext";
 
@@ -82,13 +82,30 @@ export default function MenuAppBar() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {[{text:"Dashboard", url: '/'}, {text:"Create Task", url: 'task'}, {text:"My Pet", url: 'my-pet'}].map((menuItem, index) => (
+        {[
+          { text: "Dashboard", url: "/" },
+          { text: "Create Task", url: "task" },
+          { text: "My Pet", url: "my-pet" }
+        ].map((menuItem, index) => (
           <ListItem button key={menuItem.text}>
             <Link to={menuItem.url}>
-            <ListItemIcon>
-              {[HomeSharpIcon, AssignmentSharpIcon, PetsIcon]}
-            </ListItemIcon>
-            <ListItemText primary={menuItem.text} />
+              <ListItemIcon>
+                {Object.keys(menuItem).map(key => {
+                  if (key === "text") {
+                    switch (menuItem[key]) {
+                      case "Dashboard":
+                        return <HomeSharpIcon key={menuItem[key]} />;
+                      case "Create Task":
+                        return <AssignmentSharpIcon key={menuItem[key]} />;
+                      case "My Pet":
+                        return <PetsIcon key={menuItem[key]} />;
+                      default:
+                        break;
+                    }
+                  }
+                })}
+              </ListItemIcon>
+              <ListItemText primary={menuItem.text} />
             </Link>
           </ListItem>
         ))}
@@ -100,22 +117,26 @@ export default function MenuAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-          >
-            <PetsTwoToneIcon fontSize="large" />
-          </IconButton>
-          <SwipeableDrawer
-            open={left}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
-          >
-            {menuList()}
-          </SwipeableDrawer>
+          {user && (
+            <div>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
+              >
+                <PetsTwoToneIcon fontSize="large" />
+              </IconButton>
+              <SwipeableDrawer
+                open={left}
+                onClose={toggleDrawer(false)}
+                onOpen={toggleDrawer(true)}
+              >
+                {menuList()}
+              </SwipeableDrawer>
+            </div>
+          )}
           <Typography variant="h3" className={classes.title}>
             Habbit
           </Typography>
@@ -145,7 +166,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem>{user.name}</MenuItem>
+                <MenuItem>{user.fullName}</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

@@ -26,6 +26,7 @@ const UserSchema = new Schema({
       "Password should be four characters or longer"
     ]
   },
+  points: { type: Number, required: true, default: 10 },
   todos: [todoSchema],
   pet: petSchema,
 
@@ -43,7 +44,7 @@ class newUser {
   }
 
   comparePassword(challenge) {
-    return bcrypt.compare(this.password, challenge)
+    return bcrypt.compare(challenge, this.password)
   }
 }
 

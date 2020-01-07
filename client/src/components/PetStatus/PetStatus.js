@@ -5,6 +5,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 
+import AuthContext from '../../contexts/AuthContext';
+
 const useStyles = makeStyles(theme => ({
     button: {
         margin: 10
@@ -23,8 +25,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function PetStatus(props) {
     const classes = useStyles();
+    const authContext = React.useContext(AuthContext);
+    console.log(authContext)
     const [state, setState] = React.useState({
-        health: 100
+        health: authContext.user.pet.health
     });
     const loseHealth = () => {
         const pHealth = state.health - 10

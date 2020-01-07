@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
+import AuthContext from '../../contexts/AuthContext';
+
 const useStyles = makeStyles(theme => ({
     button: {
         margin: 10
@@ -25,10 +27,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function PetEnhancer(props) {
     const classes = useStyles();
+    const authContext = React.useContext(AuthContext);
     const [state, setState] = React.useState({
-        points: 0,
-        feedPoints: 0,
-        playPoints: 0
+        points: authContext.user.points
     });
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -65,13 +66,13 @@ export default function PetEnhancer(props) {
                                 label='Feed'
                                 id='Feed'
                                 type='number'
-                                name='feedPoints'
-                                value={state.feedPoints}
+                                name='points'
+                                value={state.points}
                                 variant="filled"
                                 onChange={handleInputChange}
                                 className={classes.textField}
                             />
-                            <TextField
+                            {/* <TextField
                                 label='play'
                                 id='play'
                                 type='number'
@@ -80,7 +81,7 @@ export default function PetEnhancer(props) {
                                 variant="filled"
                                 onChange={handleInputChange}
                                 className={classes.textField}
-                            />
+                            /> */}
 
                         <Button className={classes.button} type="submit" size="large" variant="outlined" color="primary">Care For Pet</Button>
                     </form>
