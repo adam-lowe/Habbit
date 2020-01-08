@@ -28,19 +28,13 @@ const useStyles = makeStyles(theme => ({
 export default function PetEnhancer(props) {
     const classes = useStyles();
     const authContext = React.useContext(AuthContext);
-    const [state, setState] = React.useState({
-        points: authContext.user.points
-    });
+    const [points, setState] = React.useState(authContext.user.points);
     const handleInputChange = event => {
         const { name, value } = event.target;
-        setState({
-            ...state,
-            [name]: value
-        });
+        setState(value);
     };
 
     const handleSubmit = event => {
-        const { points } = state;
         props.onSubmit(points);
         event.preventDefault();
     };
@@ -48,26 +42,21 @@ export default function PetEnhancer(props) {
     return (
         <div className='PetEnhancer'>
             <Card className={classes.card}>
-            {/* {state.error && (
-          <Grid item xs={12}>
-            <ErrorMsg className={classes.margin} message={state.error} />
-          </Grid>
-        )} */}
             <Typography
               className="PointsTotal"
               color="textSecondary"
               gutterBottom
             >
-              You have {state.points} points left
+              You have {points} points left
             </Typography>
                 <CardContent>
-                    <form className='PetEnhancer' onSubmit={handleSubmit}>
+                    <form className='PetEnhancer'>
                             <TextField
                                 label='Feed'
                                 id='Feed'
                                 type='number'
                                 name='points'
-                                value={state.points}
+                                value={points}
                                 variant="filled"
                                 onChange={handleInputChange}
                                 className={classes.textField}
@@ -83,7 +72,7 @@ export default function PetEnhancer(props) {
                                 className={classes.textField}
                             /> */}
 
-                        <Button className={classes.button} type="submit" size="large" variant="outlined" color="primary">Care For Pet</Button>
+                        <Button className={classes.button} onClick={handleSubmit} type="button" size="large" variant="outlined" color="primary">Care For Pet</Button>
                     </form>
                 </CardContent>
             </Card>

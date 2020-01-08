@@ -30,7 +30,7 @@ export default function MyPet() {
   const handleSubmit = (points) => {
     const { user } = authContext;
     user.points -= points;
-    user.pet.health = Number.parse(user.pet.health) + points;
+    user.pet.health =user.pet.health +  Number.parseInt(points);
     authContext.updateUser(user);
   };
 
@@ -48,7 +48,7 @@ export default function MyPet() {
         )}
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <PetStatus imageHeight="200" />
+            <PetStatus />
           </Paper>
         </Grid>
         <Grid item xs={12}>

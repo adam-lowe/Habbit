@@ -27,9 +27,13 @@ class App extends Component {
     this.updateUser = user => {
       API.Users.updateMe(this.state.auth.authToken, user)
         .then(response => response.data)
-        .then(user =>
-          this.setState(prevState => ({ auth: { ...prevState.auth, user } }))
-        )
+        .then(newUser => {
+          console.log(newUser);
+          this.setState(prevState => {
+            prevState.auth.user = user;
+            return { auth: { ...prevState.auth } };
+          });
+        })
         .catch(err => console.log(err));
     };
 
@@ -46,23 +50,6 @@ class App extends Component {
         auth: { ...prevState.auth, user: undefined, authToken: undefined }
       }));
     };
-    /* This will be used when user is hooked up to back-end. Just uncomment this code and delete or commment the code immediately below this comment.
-        this.state = {
-          auth: {
-            user: {
-          email: "me@abc.com",
-          name: "Jane Doe",
-          pet: {},
-          task: [],
-        },
-        authToken: "4KAOSDFJ2454509JDF2",
-            user: undefined,
-            authToken: TokenStore.getToken(),
-            onLogin: this.handleLogin,
-            onLogout: this.handleLogout
-          }
-        }
-        */
     this.state = {
       auth: {
         user: undefined,
@@ -76,7 +63,6 @@ class App extends Component {
 
   componentDidMount() {
     const { authToken } = this.state.auth;
-    console.log(authToken);
     if (!authToken) return;
 
     API.Users.getMe(authToken)
@@ -94,37 +80,21 @@ class App extends Component {
           {/* Header */}
           <Header />
           {/* Pages/Views */}
-          <div className="container">
-            <Switch>
-              {/* Dashboard - Make Last 
-                  This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy/static data in each component and build from there.
-                    REMOVE THIS WHEN ROUTE IS COMPLETED
-              */}
-              <PrivateRoute exact path="/" component={Home} />
-              {/* Login */}
-              <Route path="/login" component={Login} />
-              {/* User Registration */}
-              <Route path="/register" component={Register} />
-              {/* Create Task */}
-              <PrivateRoute path="/task" component={Task} />
-              {/* Edit Task
-                  This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
-                    REMOVE THIS WHEN ROUTE IS COMPLETED
-               */}
-              <PrivateRoute path="/task/:id" component={Task} />
-              {/* Pet Dashboard 
-                  This route will need to be a private route when the user stuff is hooked up. While building the views, however, we can use dummy /static data in each component and build from there.
-                    REMOVE THIS WHEN ROUTE IS COMPLETED
-              */}
-              <PrivateRoute path="/my-pet" component={MyPet} />
-              {/* Dummy Route
-                  Use to test authentication. Can be deleted after. Provides example of private route creation
-                    REMOVE THIS WHEN ROUTE IS COMPLETED
-              */}
-              <PrivateRoute path="/secret" component={Secret} />
-              <Route component={NotFound} />
-            </Switch>
-          </div>
+          <Switch>
+            {/* Dashboard */}
+            <PrivateRoute exact path="/" component={Home} />
+            {/* Login */}
+            <Route path="/login" component={Login} />
+            {/* User Registration */}
+            <Route path="/register" component={Register} />
+            {/* Create Task */}
+            <PrivateRoute path="/task" component={Task} />
+            {/* Edit Task */}
+            <PrivateRoute path="/task/:id" component={Task} />
+            {/* Pet Dashboard */}
+            <PrivateRoute path="/my-pet" component={MyPet} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </AuthContext.Provider>
     );

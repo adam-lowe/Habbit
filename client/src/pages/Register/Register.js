@@ -34,7 +34,6 @@ export default function Register() {
     API.Users.create(fullName, petName, email, password)
       .then(response => response.data)
       .then(user => {
-        console.log(user);
         setState({ error: "", redirectToLogin: true });
       })
       .catch(err => setState({ error: err.message, redirectToLogin: false }));

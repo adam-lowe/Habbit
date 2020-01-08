@@ -52,7 +52,7 @@ export default function MenuAppBar() {
   const open = Boolean(anchorEl);
 
   const handleLogout = event => {
-    setAuth(event.target.checked);
+    //Need Logout Use API
   };
 
   const handleMenu = event => {
@@ -89,23 +89,33 @@ export default function MenuAppBar() {
         ].map((menuItem, index) => (
           <ListItem button key={menuItem.text}>
             <Link to={menuItem.url}>
-              
-                {Object.keys(menuItem).map(key => {
-                  if (key === "text") {
-                    switch (menuItem[key]) {
-                      case "Dashboard":
-                        
-                        return <ListItemIcon key={menuItem[key]}><HomeSharpIcon /></ListItemIcon>;
-                      case "Create Task":
-                        return <ListItemIcon key={menuItem[key]}><AssignmentSharpIcon /></ListItemIcon>;
-                      case "My Pet":
-                        return <ListItemIcon key={menuItem[key]}><PetsIcon /></ListItemIcon>;
-                      default:
-                        break;
-                    }
+              {Object.keys(menuItem).map(key => {
+                if (key === "text") {
+                  switch (menuItem[key]) {
+                    case "Dashboard":
+                      return (
+                        <ListItemIcon key={menuItem[key]}>
+                          <HomeSharpIcon />
+                        </ListItemIcon>
+                      );
+                    case "Create Task":
+                      return (
+                        <ListItemIcon key={menuItem[key]}>
+                          <AssignmentSharpIcon />
+                        </ListItemIcon>
+                      );
+                    case "My Pet":
+                      return (
+                        <ListItemIcon key={menuItem[key]}>
+                          <PetsIcon />
+                        </ListItemIcon>
+                      );
+                    default:
+                      break;
                   }
-                })}
-              
+                }
+              })}
+
               <ListItemText primary={menuItem.text} />
             </Link>
           </ListItem>

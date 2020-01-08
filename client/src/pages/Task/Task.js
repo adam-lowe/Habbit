@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -26,11 +27,14 @@ export default function Task() {
   });
 
   const handleSubmit = (title, dueDate, description) => {
-    const user = { authContext };
+    const { user } = authContext;
     user.todos.push({title, dueDate, description}); 
     authContext.updateUser(user);
+    setState({...state, redirect: '/'});
   };
-
+  if (state.redirect) {
+    return <Redirect to={{ pathname: state.redirect }} />;
+  }
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
