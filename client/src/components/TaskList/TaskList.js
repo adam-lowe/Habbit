@@ -26,7 +26,7 @@ export default function TaskList(props) {
   const classes = useStyles();
   const authContext = React.useContext(AuthContext);
   const { user } = authContext;
-  const [tasks,] = React.useState(user.todos);
+  const [tasks,] = React.useState(user ? user.todos: []);
 
   const handleClick = taskId => {
     const currentTask = user.todos.find(task => task._id === taskId);
