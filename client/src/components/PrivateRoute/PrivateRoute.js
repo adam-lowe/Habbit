@@ -5,23 +5,26 @@ import AuthContext from '../../contexts/AuthContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <AuthContext.Consumer>
-    {({ authToken }) => (
-      <Route
-        {...rest}
-        render={props =>
-          authToken ? (
-            <Component {...props} />
-          ) : (
-              <Redirect
-                to={{
-                  pathname: "/login",
-                  state: { from: props.location }
-                }}
-              />
-            )
-        }
-      />
-    )}
+    {({ authToken }) => {
+      console.log(authToken);
+      return (
+        <Route
+          {...rest}
+          render={props =>
+            authToken ? (
+              <Component {...props} />
+            ) : (
+                <Redirect
+                  to={{
+                    pathname: "/login",
+                    state: { from: props.location }
+                  }}
+                />
+              )
+          }
+        />
+      );
+    }}
   </AuthContext.Consumer>
 );
 

@@ -12,7 +12,6 @@ import MyPet from "../../pages/MyPet/MyPet";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 import Task from "../../pages/Task/Task";
-import Secret from "../../pages/Secret/Secret";
 import NotFound from "../../pages/NotFound/NotFound";
 
 import "./App.css";
