@@ -1,12 +1,12 @@
-const usersController = require('express').Router();
+const usersController = require("express").Router();
 
 // const db = require('../../models');
 const Users = require("../../models/user");
-const {passport, JWTVerifier } = require('../../lib/passport');
-const jwt = require('jsonwebtoken');
+const { passport, JWTVerifier } = require("../../lib/passport");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-usersController.post('/', (req, res) => {
+usersController.post("/", (req, res) => {
   let { fullName, email, password, pet } = req.body;
 
   bcrypt.genSalt(10, function(err, salt) {
@@ -18,53 +18,46 @@ usersController.post('/', (req, res) => {
     });
   });
 
-  Users.create({ fullName, email, password, pet})
-    .then(user => res.json(user))
+  Users.create({ fullName, email, password, pet })
+    .then(user => {
+      delete req.user.password;
+      res.json(user);
+    })
     .catch(err => res.status(500).json(err));
 });
 
-usersController.get('/me', JWTVerifier, (req, res) => {
-  delete req.user.password
+usersController.get("/me", JWTVerifier, (req, res) => {
+  delete req.user.password;
   res.json(req.user);
 });
 
-usersController.post('/login', (req, res) => {
+usersController.post("/login", (req, res) => {
   const { email, password } = req.body;
 
-  Users.findOne({ email })
-    .then(user => {
-    
-      if (!user) {
-        return res.status(500).send("Server Error");
-      }
+  Users.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(500).send("Server Error");
+    }
 
-      if (!user.comparePassword(password)) {
-        return res.status(401).send("Unauthorized");
-      }
-
-      res.json({
-        token: jwt.sign({ sub: user._id }, process.env.JWT_SECRET),
-        user: {
-          email: user.email,
-          fullName: user.fullName,
-          _id: user._id,
-          todos: user.todos,
-          pet: user.pet
-        }
-      });
+    if (!user.comparePassword(password)) {
+      return res.status(401).send("Unauthorized");
+    }
+    delete user.password;
+    res.json({
+      token: jwt.sign({ sub: user._id }, process.env.JWT_SECRET),
+      user
     });
+  });
 });
 
-usersController.put('/me/:id',(req, res) => {
+usersController.put("/me/:id", (req, res) => {
   console.log(req.body);
-  Users
-    .findOneAndUpdate({ _id: req.params.id }, req.body)
+  Users.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(user => {
       delete user.password;
       res.json(user);
     })
     .catch(err => res.status(422).json(err));
-
-} )
+});
 
 module.exports = usersController;

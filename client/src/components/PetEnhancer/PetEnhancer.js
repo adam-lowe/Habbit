@@ -40,8 +40,8 @@ export default function PetEnhancer(props) {
     };
 
     const handleSubmit = event => {
-        const { feedPoints, playPoints } = state;
-        props.onSubmit(feedPoints, playPoints);
+        const { points } = state;
+        props.onSubmit(points);
         event.preventDefault();
     };
 

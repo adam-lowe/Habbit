@@ -89,22 +89,23 @@ export default function MenuAppBar() {
         ].map((menuItem, index) => (
           <ListItem button key={menuItem.text}>
             <Link to={menuItem.url}>
-              <ListItemIcon>
+              
                 {Object.keys(menuItem).map(key => {
                   if (key === "text") {
                     switch (menuItem[key]) {
                       case "Dashboard":
-                        return <HomeSharpIcon key={menuItem[key]} />;
+                        
+                        return <ListItemIcon key={menuItem[key]}><HomeSharpIcon /></ListItemIcon>;
                       case "Create Task":
-                        return <AssignmentSharpIcon key={menuItem[key]} />;
+                        return <ListItemIcon key={menuItem[key]}><AssignmentSharpIcon /></ListItemIcon>;
                       case "My Pet":
-                        return <PetsIcon key={menuItem[key]} />;
+                        return <ListItemIcon key={menuItem[key]}><PetsIcon /></ListItemIcon>;
                       default:
                         break;
                     }
                   }
                 })}
-              </ListItemIcon>
+              
               <ListItemText primary={menuItem.text} />
             </Link>
           </ListItem>

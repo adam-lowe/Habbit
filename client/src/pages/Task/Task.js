@@ -24,9 +24,9 @@ export default function Task() {
   const [state, setState] = React.useState({
     error: ""
   });
-  //update below to accept new fields
+
   const handleSubmit = (title, dueDate, description) => {
-    const user = authContext.user;
+    const user = { authContext };
     user.todos.push({title, dueDate, description}); 
     authContext.updateUser(user);
   };

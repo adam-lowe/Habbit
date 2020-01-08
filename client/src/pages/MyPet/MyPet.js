@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -19,19 +20,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Task() {
+export default function MyPet() {
   const classes = useStyles();
   const authContext = React.useContext(AuthContext);
   const [state, setState] = React.useState({
     error: ""
   });
-  //update below to accept new fields
-  // const handleSubmit = (title, dueDate, description) => {
-  //   const user = authContext.user;
-  //   user.todos.push({ title, dueDate, description });
-  //   authContext.updateUser(user);
-  // };
 
+  const handleSubmit = (points) => {
+    const { user } = authContext;
+    user.points -= points;
+    user.pet.health = Number.parse(user.pet.health) + points;
+    authContext.updateUser(user);
+  };
+
+  if (!authContext.user) {
+    return <Redirect to={{ pathname: "/login" }} />;
+  }
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -42,12 +48,12 @@ export default function Task() {
         )}
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <PetStatus />
+            <PetStatus imageHeight="200" />
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <PetEnhancer />
+            <PetEnhancer onSubmit={handleSubmit} />
           </Paper>
         </Grid>
       </Grid>

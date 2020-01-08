@@ -25,11 +25,13 @@ export default function TaskList(props) {
     const tasks = [{name:'Garden', date:'01/23/20', priority:3, desc:'do the garden'}, {name:'Help', date:'01/29/20', priority:4, desc:'get broom'},{name:'Dshib', date:'01/84/12', priority:5, desc:'chk'}]
     
     const renderTasks = tasks.map(function (task) {
+
+
         return(
-        <Card className={classes.card}>
+        <Card className={classes.card} key={task._id}>
             <CardContent>
             {task.name}: {task.desc} | Date: {task.date} | Priority: {task.priority}
-
+            <a>Click Me - {task._id}</a>
             </CardContent>
         </Card>
     )})
