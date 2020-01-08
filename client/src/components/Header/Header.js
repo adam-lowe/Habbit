@@ -20,8 +20,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import HomeSharpIcon from "@material-ui/icons/HomeSharp";
+import AssignmentSharpIcon from "@material-ui/icons/AssignmentSharp";
+import PetsIcon from "@material-ui/icons/Pets";
 
 import AuthContext from "../../contexts/AuthContext";
 
@@ -51,7 +52,7 @@ export default function MenuAppBar() {
   const open = Boolean(anchorEl);
 
   const handleLogout = event => {
-    setAuth(event.target.checked);
+    //Need Logout Use API
   };
 
   const handleMenu = event => {
@@ -81,13 +82,41 @@ export default function MenuAppBar() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {[{text:"Dashboard", url: '/'}, {text:"Create Task", url: 'task'}, {text:"My Pet", url: 'my-pet'}].map((menuItem, index) => (
+        {[
+          { text: "Dashboard", url: "/" },
+          { text: "Create Task", url: "task" },
+          { text: "My Pet", url: "my-pet" }
+        ].map((menuItem, index) => (
           <ListItem button key={menuItem.text}>
             <Link to={menuItem.url}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={menuItem.text} />
+              {Object.keys(menuItem).map(key => {
+                if (key === "text") {
+                  switch (menuItem[key]) {
+                    case "Dashboard":
+                      return (
+                        <ListItemIcon key={menuItem[key]}>
+                          <HomeSharpIcon />
+                        </ListItemIcon>
+                      );
+                    case "Create Task":
+                      return (
+                        <ListItemIcon key={menuItem[key]}>
+                          <AssignmentSharpIcon />
+                        </ListItemIcon>
+                      );
+                    case "My Pet":
+                      return (
+                        <ListItemIcon key={menuItem[key]}>
+                          <PetsIcon />
+                        </ListItemIcon>
+                      );
+                    default:
+                      break;
+                  }
+                }
+              })}
+
+              <ListItemText primary={menuItem.text} />
             </Link>
           </ListItem>
         ))}
@@ -99,22 +128,26 @@ export default function MenuAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-          >
-            <PetsTwoToneIcon fontSize="large" />
-          </IconButton>
-          <SwipeableDrawer
-            open={left}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
-          >
-            {menuList()}
-          </SwipeableDrawer>
+          {user && (
+            <div>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
+              >
+                <PetsTwoToneIcon fontSize="large" />
+              </IconButton>
+              <SwipeableDrawer
+                open={left}
+                onClose={toggleDrawer(false)}
+                onOpen={toggleDrawer(true)}
+              >
+                {menuList()}
+              </SwipeableDrawer>
+            </div>
+          )}
           <Typography variant="h3" className={classes.title}>
             Habbit
           </Typography>
@@ -144,7 +177,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem>{user.name}</MenuItem>
+                <MenuItem>{user.fullName}</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

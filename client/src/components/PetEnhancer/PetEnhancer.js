@@ -3,8 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import { Alert } from '@material-ui/lab';
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+
+import AuthContext from '../../contexts/AuthContext';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -25,42 +27,41 @@ const useStyles = makeStyles(theme => ({
 
 export default function PetEnhancer(props) {
     const classes = useStyles();
-    const [state, setState] = React.useState({
-        points: 0,
-        feedPoints: 0,
-        playPoints: 0
-    });
+    const authContext = React.useContext(AuthContext);
+    const [points, setState] = React.useState(authContext.user.points);
     const handleInputChange = event => {
         const { name, value } = event.target;
-        setState({
-            ...state,
-            [name]: value
-        });
+        setState(value);
     };
 
     const handleSubmit = event => {
-        const { feedPoints, playPoints } = state;
-        props.onSubmit(feedPoints, playPoints);
+        props.onSubmit(points);
         event.preventDefault();
     };
 
     return (
         <div className='PetEnhancer'>
             <Card className={classes.card}>
-                <Alert severity="info">You have {state.points} points left</Alert>
+            <Typography
+              className="PointsTotal"
+              color="textSecondary"
+              gutterBottom
+            >
+              You have {points} points left
+            </Typography>
                 <CardContent>
-                    <form className='PetEnhancer' onSubmit={handleSubmit}>
+                    <form className='PetEnhancer'>
                             <TextField
                                 label='Feed'
                                 id='Feed'
                                 type='number'
-                                name='feedPoints'
-                                value={state.feedPoints}
+                                name='points'
+                                value={points}
                                 variant="filled"
                                 onChange={handleInputChange}
                                 className={classes.textField}
                             />
-                            <TextField
+                            {/* <TextField
                                 label='play'
                                 id='play'
                                 type='number'
@@ -69,9 +70,9 @@ export default function PetEnhancer(props) {
                                 variant="filled"
                                 onChange={handleInputChange}
                                 className={classes.textField}
-                            />
+                            /> */}
 
-                        <Button className={classes.button} type="submit" size="large" variant="outlined" color="primary">Care For Pet</Button>
+                        <Button className={classes.button} onClick={handleSubmit} type="button" size="large" variant="outlined" color="primary">Care For Pet</Button>
                     </form>
                 </CardContent>
             </Card>

@@ -4,9 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-import API from "../../lib/API";
+import AuthContext from "../../contexts/AuthContext";
 import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
-import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
+import PetStatus from "../../components/PetStatus/PetStatus";
+import PetEnhancer from "../../components/PetEnhancer/PetEnhancer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,28 +20,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Register() {
+export default function MyPet() {
   const classes = useStyles();
+  const authContext = React.useContext(AuthContext);
   const [state, setState] = React.useState({
-    error: "",
-    redirectToLogin: false
+    error: ""
   });
-  //update below to accept new fields
-  const handleSubmit = (fullName, petName, email, password, confirm) => {
-    if (password !== confirm) {
-      return setState({ error: "Passwords do not match." });
-    }
 
-    API.Users.create(fullName, petName, email, password)
-      .then(response => response.data)
-      .then(user => {
-        setState({ error: "", redirectToLogin: true });
-      })
-      .catch(err => setState({ error: err.message, redirectToLogin: false }));
+  const handleSubmit = (points) => {
+    const { user } = authContext;
+    user.points -= points;
+    user.pet.health =user.pet.health +  Number.parseInt(points);
+    authContext.updateUser(user);
   };
-  if (state.redirectToLogin) {
+
+  if (!authContext.user) {
     return <Redirect to={{ pathname: "/login" }} />;
   }
+  
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -51,7 +48,12 @@ export default function Register() {
         )}
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <RegistrationForm onSubmit={handleSubmit} />
+            <PetStatus />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <PetEnhancer onSubmit={handleSubmit} />
           </Paper>
         </Grid>
       </Grid>
