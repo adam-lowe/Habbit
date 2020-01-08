@@ -9,8 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
 import EmailSharpIcon from "@material-ui/icons/EmailSharp";
-import VpnKeySharpIcon from "@material-ui/icons/VpnKeySharp";
-import PetsSharpIcon from '@material-ui/icons/PetsSharp';
+
 import ShortTextSharpIcon from '@material-ui/icons/ShortTextSharp';
 import EventNoteSharpIcon from '@material-ui/icons/EventNoteSharp';
 

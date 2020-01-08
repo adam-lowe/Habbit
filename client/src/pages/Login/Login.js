@@ -54,7 +54,7 @@ export default function Login(props) {
       });
   };
   const { from } = props.location.state || {
-    from: { pathname: "/secret" }
+    from: { pathname: "/" }
   };
   const { redirectToReferrer } = state;
 

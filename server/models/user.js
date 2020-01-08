@@ -26,24 +26,24 @@ const UserSchema = new Schema({
       "Password should be four characters or longer"
     ]
   },
+  points: { type: Number, required: true, default: 10 },
   todos: [todoSchema],
-  pet: petSchema,
-
-
+  pet: petSchema
 });
 
 class newUser {
-  constructor({ _id, fullName, email, password, pet, todos }) {
+  constructor({ _id, fullName, email, password, pet, todos, points }) {
     this._id = _id;
     this.fullName = fullName;
     this.email = email;
     this.password = password;
     this.todos = todos;
     this.pet = pet;
+    this.points = points;
   }
 
   comparePassword(challenge) {
-    return bcrypt.compare(this.password, challenge)
+    return bcrypt.compare(challenge, this.password);
   }
 }
 
