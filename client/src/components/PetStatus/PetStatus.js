@@ -39,7 +39,7 @@ export default function PetStatus(props) {
         <div className='PetStatus'>
             <Card className={classes.card}>
                 <CardContent>
-                    <img className={classes.img} src={`http://placekitten.com/200/200`} alt="Kitten" />
+                    <img className={classes.img} src={`./Assets/TheHabbit.png`} alt="Kitten" />
                     <Line className={classes.line} percent={state.health} strokeWidth="2" strokeColor="#2db7f5" />
                     <Button className={classes.button} type="submit" size="large" onClick={loseHealth} variant="outlined" color="primary">Pass Time</Button>
                 </CardContent>
