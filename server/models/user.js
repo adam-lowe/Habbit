@@ -28,7 +28,7 @@ const UserSchema = new Schema({
   },
   points: { type: Number, required: true, default: 10 },
   todos: [todoSchema],
-  pet: petSchema
+  pet: petSchema,
 });
 
 class newUser {

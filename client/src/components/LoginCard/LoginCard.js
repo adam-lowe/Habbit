@@ -77,7 +77,7 @@ export default function LoginCard(props) {
                   name="email"
                   type="email"
                   value={email}
-                  label="Username"
+                  label="Email"
                   variant="filled"
                   onChange={handleInputChange}
                   className={classes.textField}
