@@ -1,17 +1,10 @@
-/**
- * This page will be used to show the user dashboard.
- *  * Convert these functions, so we can use hooks.
- * @todo: Link to state?
- * @todo: Make Components
- */
+
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
 import AuthContext from "../../contexts/AuthContext";
-import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
 import PetStatus from "../../components/PetStatus/PetStatus";
 import TaskList from "../../components/TaskList/TaskList";
 
@@ -38,7 +31,7 @@ export default function Home() {
   //     user.todos.push({title, dueDate, description});
   //     authContext.updateUser(user);
   //   };
-  if (!authContext.user) {
+  if (!authContext.authToken) {
     return <Redirect to={{ pathname: "/login" }} />;
   }
   return (

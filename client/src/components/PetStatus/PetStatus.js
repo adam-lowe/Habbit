@@ -27,7 +27,7 @@ export default function PetStatus(props) {
     const classes = useStyles();
     const authContext = React.useContext(AuthContext);
     const [state, setState] = React.useState({
-        health: authContext.user.pet.health
+        health: authContext.user ? authContext.user.pet.health: 100
     });
     const loseHealth = () => {
         const pHealth = state.health - 10
