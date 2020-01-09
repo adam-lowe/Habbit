@@ -34,8 +34,10 @@ export default function TaskList(props) {
     user.points += 5;
     updateUser(user);
   };
-  const incompleteTasks = tasks.find(task => !task.complete);
-  const renderTasks = tasks.map(function(task) {
+
+  const incompleteTasks = tasks.filter(task => !task.complete);
+  console.log(incompleteTasks);
+  const renderTasks = incompleteTasks.map(function(task) {
     return (
       <Card className={classes.card} key={task._id}>
         <CardContent>
@@ -66,7 +68,7 @@ export default function TaskList(props) {
   if (!user) {
     return <div>Loading...</div>;
   }
-  return incompleteTasks ? (
+  return incompleteTasks.length ? (
     <div className="TaskList">{renderTasks}</div>
   ) : (
     <div>
