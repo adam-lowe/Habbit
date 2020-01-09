@@ -30,12 +30,9 @@ export default function Register() {
     if (password !== confirm) {
       return setState({ error: "Passwords do not match." });
     }
-
     API.Users.create(fullName, petName, email, password)
       .then(response => response.data)
-      .then(user => {
-        setState({ error: "", redirectToLogin: true });
-      })
+      .then(user => setState({ error: "", redirectToLogin: true }))
       .catch(err => setState({ error: err.message, redirectToLogin: false }));
   };
   if (state.redirectToLogin) {

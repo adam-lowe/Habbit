@@ -1,4 +1,4 @@
-import React, {useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -26,9 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PetEnhancer(props) {
     const classes = useStyles();
-    const authContext = useContext(AuthContext);
-    const user = authContext.user
-
+    const { user } = useContext(AuthContext);
     return (
         <div className='PetEnhancer'>
             <Card className={classes.card}>
@@ -37,7 +35,7 @@ export default function PetEnhancer(props) {
               color="textSecondary"
               gutterBottom
             >
-              You have {user.points} points left
+              You have {user ? user.points : 0} points left
             </Typography>
                 <CardContent>
                     <form className='PetEnhancer'>

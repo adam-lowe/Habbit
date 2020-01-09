@@ -1,11 +1,9 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { Line } from 'rc-progress';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-
-import AuthContext from '../../contexts/AuthContext';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -25,15 +23,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function PetStatus(props) {
     const classes = useStyles();
-    const authContext = useContext(AuthContext);
-
     return (
         <div className='PetStatus'>
             <Card className={classes.card}>
                 <CardContent>
                     <img className={classes.img} src={`http://placekitten.com/200/200`} alt="Kitten" />
-                    <Line className={classes.line} percent={props.health} strokeWidth="2" strokeColor="#2db7f5" />
-                    <Button className={classes.button} type="submit" size="large" variant="outlined" color="primary">Pass Time</Button>
+                    <Line className={classes.line} percent={props.health} strokeWidth="7" strokeColor="#2db7f5" />
                 </CardContent>
             </Card>
         </div>

@@ -43,11 +43,13 @@ class App extends Component {
       }));
     };
 
-    this.handleLogout = () => {
+    this.handleLogout = (authToken) => {
+      API.Users.logout(authToken);
       TokenStore.clearToken();
       this.setState(prevState => ({
         auth: { ...prevState.auth, user: undefined, authToken: undefined }
       }));
+      
     };
     this.state = {
       auth: {
@@ -77,7 +79,7 @@ class App extends Component {
       <AuthContext.Provider value={this.state.auth}>
         <div className="App">
           {/* Header */}
-          <Header />
+          <Header logout={this.handleLogout} />
           {/* Pages/Views */}
           <Switch>
             {/* Dashboard */}
