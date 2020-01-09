@@ -9,23 +9,22 @@ const bcrypt = require("bcrypt");
 usersController.post("/", (req, res) => {
   let { fullName, email, password, pet } = req.body;
 
-  bcrypt.genSalt(10, function (err, salt) {
+  bcrypt.genSalt(10, function(err, salt) {
     if (err) return next(err);
-    bcrypt.hash(password, salt, function (err, hash) {
+    bcrypt.hash(password, salt, function(err, hash) {
       if (err) return next(err);
-      console.log(hash)
+      console.log(hash);
       password = hash; // Or however suits your setup
       // Store the user to the database, then send the response
     });
     Users.create({ fullName, email, password, pet })
-    .then(user => {
-      console.log(user)
-      delete user.password;
-      res.json(user);
-    })
-    .catch(err => res.status(500).json(err));
+      .then(user => {
+        console.log(user);
+        delete user.password;
+        res.json(user);
+      })
+      .catch(err => res.status(500).json(err));
   });
-
 });
 
 usersController.get("/me", JWTVerifier, (req, res) => {
@@ -51,9 +50,11 @@ usersController.post("/login", (req, res) => {
     });
   });
 });
-
-usersController.put("/me/:id", (req, res) => {
-  console.log(req.body);
+usersController.post("/logout", (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+usersController.put("/me/:id", JWTVerifier, (req, res) => {
   Users.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(user => {
       delete user.password;

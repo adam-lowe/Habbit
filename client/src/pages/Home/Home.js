@@ -1,6 +1,4 @@
-
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
@@ -21,24 +19,26 @@ const useStyles = makeStyles(theme => ({
 
 export default function Home() {
   const classes = useStyles();
-  const authContext = React.useContext(AuthContext);
-  const [state, setState] = React.useState({
-    error: ""
-  });
+  const { user } = useContext(AuthContext);
+  const [health, setHealth] = useState(0);
 
-  //   const handleSubmit = (title, dueDate, description) => {
-  //     const user = authContext.user;
-  //     user.todos.push({title, dueDate, description});
-  //     authContext.updateUser(user);
-  //   };
-  if (!authContext.authToken) {
-    return <Redirect to={{ pathname: "/login" }} />;
-  }
+  setTimeout(() => {
+    if (user) setHealth(user.pet.health);
+  }, 1000);
+
+  const petDeathTimer = setInterval(() => {
+    const pHealth = health - 5;
+    setHealth(pHealth);
+    if (health <= 0) {
+      clearInterval(petDeathTimer);
+    }
+  }, 30000);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
-            <PetStatus />
+          <PetStatus health={health} />
         </Grid>
         <Grid item xs={12} md={8}>
           <TaskList />

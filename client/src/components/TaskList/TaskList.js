@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -24,19 +25,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function TaskList(props) {
   const classes = useStyles();
-  const authContext = React.useContext(AuthContext);
-  const { user } = authContext;
-  const [tasks,] = React.useState(user ? user.todos: []);
+  const { user, updateUser } = useContext(AuthContext);
+  const [tasks] = useState(user ? user.todos : []);
 
   const handleClick = taskId => {
     const currentTask = user.todos.find(task => task._id === taskId);
     currentTask.complete = !currentTask.complete;
     user.points += 5;
-    authContext.updateUser(user);
+    updateUser(user);
   };
-
+  const incompleteTasks = tasks.find(task => !task.complete);
   const renderTasks = tasks.map(function(task) {
-    return !task.complete && (
+    return (
       <Card className={classes.card} key={task._id}>
         <CardContent>
           <h2>{task.title}</h2>
@@ -63,6 +63,16 @@ export default function TaskList(props) {
       </Card>
     );
   });
-
-  return <div className="TaskList">{renderTasks}</div>;
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+  return incompleteTasks ? (
+    <div className="TaskList">{renderTasks}</div>
+  ) : (
+    <div>
+      <h2>All Tasks Completed!</h2>
+      <p>Your pet will get hungry!</p>
+      <Link to="/task">Create more tasks to complete</Link>
+    </div>
+  );
 }

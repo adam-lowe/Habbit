@@ -1,5 +1,4 @@
-import React, {useState, useContext} from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -22,54 +21,56 @@ const useStyles = makeStyles(theme => ({
 
 export default function MyPet() {
   const classes = useStyles();
-  const authContext = useContext(AuthContext);
-  const user = authContext.user
-  const [health, setHealth] = useState(user.pet.health);
-  const [points, setPoints] = useState(user.points);
-  const [state, setState] = React.useState({
-    error: ""
-  });
+  const { user, updateUser } = useContext(AuthContext);
+  const [health, setHealth] = useState(0);
+  const [points, setPoints] = useState(0);
+  const [error] = React.useState({ message: "" });
+
+  setTimeout(() => {
+    if (user) {
+      setHealth(user.pet.health);
+      setPoints(user.points);
+    }
+  }, 1000);
 
   const petDeathTimer = setInterval(() => {
-    const pHealth = health - 10
+    const pHealth = health - 5;
     setHealth(pHealth);
     if (health <= 0) {
-      clearInterval(petDeathTimer)
+      clearInterval(petDeathTimer);
     }
   }, 30000);
 
   const handleSubmit = () => {
     console.log(points);
     console.log(health);
-    
+
     user.points -= points;
-    user.pet.health = user.pet.health +  Number.parseInt(points);
-    authContext.updateUser(user);
-    setHealth(user.pet.health)
+    user.pet.health = user.pet.health + points;
+    updateUser(user);
+    setHealth(user.pet.health);
     console.log(points);
     console.log(health);
   };
 
   const handleInputChange = event => {
-      const { value } = event.target;
-          if (value < 0) {
-              return;
-          } else if (value > user.points) {
-              return;
-          }
-      setPoints(value);
+    const { value } = event.target;
+    if (value < 0) {
+      return;
+    } else if (value > user.points) {
+      return;
+    }
+    setPoints(value);
   };
-
-  if (!authContext.user) {
-    return <Redirect to={{ pathname: "/login" }} />;
+  if (!user) {
+    return <div>Loading...</div>;
   }
-  
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        {state.error && (
+        {error.message && (
           <Grid item xs={12}>
-            <ErrorMsg className={classes.margin} message={state.error} />
+            <ErrorMsg className={classes.margin} message={error.message} />
           </Grid>
         )}
         <Grid item xs={12}>
@@ -79,7 +80,11 @@ export default function MyPet() {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <PetEnhancer points={points} handleInputChange={handleInputChange} onSubmit={handleSubmit} />
+            <PetEnhancer
+              points={points}
+              handleInputChange={handleInputChange}
+              onSubmit={handleSubmit}
+            />
           </Paper>
         </Grid>
       </Grid>

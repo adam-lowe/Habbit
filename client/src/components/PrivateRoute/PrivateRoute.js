@@ -6,7 +6,6 @@ import AuthContext from '../../contexts/AuthContext';
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <AuthContext.Consumer>
     {({ authToken }) => {
-      console.log(authToken);
       return (
         <Route
           {...rest}

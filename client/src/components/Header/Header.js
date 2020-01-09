@@ -25,6 +25,7 @@ import AssignmentSharpIcon from "@material-ui/icons/AssignmentSharp";
 import PetsIcon from "@material-ui/icons/Pets";
 
 import AuthContext from "../../contexts/AuthContext";
+import API from "../../lib/API";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,18 +42,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [left, setLeft] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const { user } = React.useContext(AuthContext);
+  const { user, authToken } = React.useContext(AuthContext);
 
   const open = Boolean(anchorEl);
 
   const handleLogout = event => {
-    //Need Logout Use API
+    props.logout(authToken);
   };
 
   const handleMenu = event => {
@@ -113,7 +113,9 @@ export default function MenuAppBar() {
                     default:
                       break;
                   }
+                  return "";
                 }
+                return "";
               })}
 
               <ListItemText primary={menuItem.text} />
