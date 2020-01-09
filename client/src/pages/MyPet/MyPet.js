@@ -22,10 +22,9 @@ const useStyles = makeStyles(theme => ({
 export default function MyPet() {
   const classes = useStyles();
   const { user, updateUser } = useContext(AuthContext);
-  const [health, setHealth] = useState(0);
-  const [points, setPoints] = useState(0);
+  const [health, setHealth] = useState(100);
+  const [points, setPoints] = useState(60);
   const [error] = React.useState({ message: "" });
-
   // useEffect(() {
   //   const timer = setTimeout(() => {
   //       if (user) {
@@ -63,24 +62,17 @@ export default function MyPet() {
           clearInterval(petDeathTimer)
         }
 
-        setHealth(prevHealth => prevHealth <= 0 ?  petDead(): prevHealth - 20);
+        setHealth(prevHealth => prevHealth <= 0 ?  petDead(): prevHealth - 5);
 
-      }, 4500);
+      }, 30000);
 
     }
 
   }, [user])
 
   const handleSubmit = () => {
-    console.log(points);
-    console.log(health);
-
-    user.points -= points;
-    user.pet.health = user.pet.health + user.pet.points;
-    updateUser(user);
-    setHealth(user.pet.health);
-    console.log(points);
-    console.log(health);
+    user.points -= parseInt(points);
+    setHealth(prevHealth => prevHealth + parseInt(points))
   };
 
   const handleInputChange = event => {
