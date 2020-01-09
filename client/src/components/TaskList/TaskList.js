@@ -68,7 +68,7 @@ export default function TaskList(props) {
   if (!user) {
     return <div>Loading...</div>;
   }
-  return incompleteTasks ? (
+  return incompleteTasks.length ? (
     <div className="TaskList">{renderTasks}</div>
   ) : (
     <div>
