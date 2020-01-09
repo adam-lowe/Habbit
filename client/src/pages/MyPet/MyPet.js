@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -26,27 +26,57 @@ export default function MyPet() {
   const [points, setPoints] = useState(0);
   const [error] = React.useState({ message: "" });
 
-  setTimeout(() => {
-    if (user) {
-      setHealth(user.pet.health);
-      setPoints(user.points);
-    }
-  }, 1000);
+  // useEffect(() {
+  //   const timer = setTimeout(() => {
+  //       if (user) {
+  //         setHealth(user.pet.health);
+  //         setPoints(user.points);
+  //         console.log("why?");
+          
+  //       }
+  //     }, 1000);
+  //     return () => clearTimeout(timer);
+  // });
 
-  const petDeathTimer = setInterval(() => {
-    const pHealth = health - 5;
-    setHealth(pHealth);
-    if (health <= 0) {
-      clearInterval(petDeathTimer);
+  // setTimeout(() => {
+  //   if (user) {
+  //     setHealth(user.pet.health);
+  //     setPoints(user.points);
+  //     console.log("why?");
+      
+  //   }
+  // }, 1000);
+  
+  useEffect(()=> {
+
+    if (!user) {
+      return
+    } else {
+
+      setHealth(prevHealth => prevHealth + user.pet.health);
+      setPoints(user.points);
+
+      const petDeathTimer = setInterval(() => {
+
+        const petDead = () => {
+          console.log("congrats! your beloved pet is dead.")
+          clearInterval(petDeathTimer)
+        }
+
+        setHealth(prevHealth => prevHealth <= 0 ?  petDead(): prevHealth - 20);
+
+      }, 4500);
+
     }
-  }, 30000);
+
+  }, [user])
 
   const handleSubmit = () => {
     console.log(points);
     console.log(health);
 
     user.points -= points;
-    user.pet.health = user.pet.health + points;
+    user.pet.health = user.pet.health + user.pet.points;
     updateUser(user);
     setHealth(user.pet.health);
     console.log(points);
