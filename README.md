@@ -15,14 +15,10 @@ We used a mix of Yarn and NPM technologies, with a server built using EXPRESS an
 
 ## The Habbit team consists of
 
-# Christina Burt
-[Christie] https://github.com/TwoByteKitty
+# [Christina Burt](https://github.com/TwoByteKitty)
 
-# Adam Lowe
-[Adam] https://github.com/adam-lowe
+# [Adam Lowe](https://github.com/adam-lowe)
 
-# Thomas Beaman
-[Thomas] https://github.com/thoughtsinflight
+# [Thomas Beaman](https://github.com/thoughtsinflight)
 
-# Nicholas Marotta
-[Nick] https://github.com/Th3Freeman
+# [Nicholas Marotta](https://github.com/Th3Freeman)
