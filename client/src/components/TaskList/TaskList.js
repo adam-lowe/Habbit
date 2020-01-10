@@ -24,9 +24,10 @@ const useStyles = makeStyles(theme => ({
 export default function TaskList(props) {
   const classes = useStyles();
   const incompleteTasks = props.tasks.filter(task => !task.complete);
-  const renderTasks = incompleteTasks.map(function(task) {
-    return (
-      <Card className={classes.card} key={task._id}>
+  const renderTasks = incompleteTasks.map(function(task, index) {
+    console.log(typeof task._id);
+    return task && task._id && (
+      <Card className={classes.card} key={`${task._id.split('').slice(0, 4).join('')}-${index}`}>
         <CardContent>
           <h2>{task.title}</h2>
           <p>{task.description}</p>

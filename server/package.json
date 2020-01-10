@@ -11,7 +11,8 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "bcrypt": "^3.0.7"
+    "bcrypt": "^3.0.7",
+    "mongoose-sequence": "^5.2.2"
   },
   "scripts": {
     "start": "node server",

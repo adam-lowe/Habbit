@@ -13,10 +13,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 //-- Dependencies ------------------------------------------------------------
 const express = require('express');
-const mongoose = require('mongoose');
+
+
 const logger = require('morgan');
 const { passport } = require('./lib/passport');
 
+const { db } = require('./lib/db');
 //-- Constants ---------------------------------------------------------------
 const PORT = process.env.PORT || 3001;
 const LOG_MODE = process.env.NODE_ENV === 'production' ? 'common' : 'dev';
@@ -25,11 +27,11 @@ const LOG_MODE = process.env.NODE_ENV === 'production' ? 'common' : 'dev';
 const app = express();
 
 //-- Mongoose Setup ----------------------------------------------------------
-mongoose.connect(
+db.connect(
   process.env.MONGODB_URI ||
-  'mongodb://localhost/HabbitDB', {useNewUrlParser: true, useUnifiedTopology: true}
+  'mongodb://localhost/HabbitDB'
 )
-mongoose.connection.on('error', err => {
+db.connection.on('error', err => {
   console.log(`Mongoose connection err:\n${err}`)
 })
 //-- Middleware --------------------------------------------------------------
