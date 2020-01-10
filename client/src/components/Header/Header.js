@@ -27,6 +27,8 @@ import PetsIcon from "@material-ui/icons/Pets";
 import AuthContext from "../../contexts/AuthContext";
 import API from "../../lib/API";
 
+import ProjectLogo from "../Assets/Artboard_1.png"
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -150,8 +152,8 @@ export default function MenuAppBar(props) {
               </SwipeableDrawer>
             </div>
           )}
+          <img className={classes.img} src={ProjectLogo} alt="Kitten" />
           <Typography variant="h3" className={classes.title}>
-            Habbit
           </Typography>
           {user && (
             <div>
