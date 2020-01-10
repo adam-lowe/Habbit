@@ -25,7 +25,6 @@ import AssignmentSharpIcon from "@material-ui/icons/AssignmentSharp";
 import PetsIcon from "@material-ui/icons/Pets";
 
 import AuthContext from "../../contexts/AuthContext";
-import API from "../../lib/API";
 
 import ProjectLogo from "../Assets/Artboard_1.png"
 

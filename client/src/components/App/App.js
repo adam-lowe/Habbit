@@ -24,7 +24,7 @@ class App extends Component {
     super(props);
 
     this.updateUser = user => {
-      API.Users.updateMe(this.state.auth.authToken, user)
+      return API.Users.updateMe(this.state.auth.authToken, user)
         .then(response => response.data)
         .then(newUser => {
           console.log(newUser);
@@ -32,6 +32,7 @@ class App extends Component {
             prevState.auth.user = user;
             return { auth: { ...prevState.auth } };
           });
+          return this.state.auth.user;
         })
         .catch(err => console.log(err));
     };
