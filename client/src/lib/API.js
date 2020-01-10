@@ -31,7 +31,7 @@ export default {
     },
 
     updateMe: function(authToken, user) {
-      return axios.put(`/api/users/me/${user._id}`, user, {
+      return axios.put(`/api/users/me/`, user, {
         headers: {
           Authorization: `Bearer ${authToken}`
         }

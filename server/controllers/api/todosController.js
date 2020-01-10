@@ -4,11 +4,10 @@ const Users = require("../../models/user");
 const { JWTVerifier } = require('../../lib/passport');
 
 router.get("/", JWTVerifier, (req, res) => {
-  Todo
-    .find()
-    .sort({ date: -1 })
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
+  Users
+    .findById(req.user._id)
+    .then(user => res.json(user.todos))
+    .catch(err => res.status(500).json(err));
 });
 
 router.get("/:id", JWTVerifier, (req, res) => {

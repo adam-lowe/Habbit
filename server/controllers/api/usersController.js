@@ -54,8 +54,8 @@ usersController.post("/logout", (req, res) => {
   req.logout();
   res.redirect('/');
 });
-usersController.put("/me/:id", JWTVerifier, (req, res) => {
-  Users.findOneAndUpdate({ _id: req.params.id }, req.body)
+usersController.put("/me/", JWTVerifier, (req, res) => {
+  Users.updateOne({ _id: req.user._id }, req.body)
     .then(user => {
       delete user.password;
       res.json(user);

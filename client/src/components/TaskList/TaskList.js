@@ -1,11 +1,9 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-
-import AuthContext from "../../contexts/AuthContext";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -25,21 +23,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function TaskList(props) {
   const classes = useStyles();
-  const { user, updateUser } = useContext(AuthContext);
-  const [tasks] = useState(user ? user.todos : []);
-
-  const handleClick = taskId => {
-    const currentTask = user.todos.find(task => task._id === taskId);
-    currentTask.complete = !currentTask.complete;
-    user.points += 5;
-    updateUser(user);
-  };
-
-  const incompleteTasks = tasks.filter(task => !task.complete);
-  console.log(incompleteTasks);
-  const renderTasks = incompleteTasks.map(function(task) {
-    return (
-      <Card className={classes.card} key={task._id}>
+  const incompleteTasks = props.tasks.filter(task => !task.complete);
+  const renderTasks = incompleteTasks.map(function(task, index) {
+    console.log(typeof task._id);
+    return task && task._id && (
+      <Card className={classes.card} key={`${task._id.split('').slice(0, 4).join('')}-${index}`}>
         <CardContent>
           <h2>{task.title}</h2>
           <p>{task.description}</p>
@@ -51,7 +39,7 @@ export default function TaskList(props) {
           <h5>Completed: {task.complete ? "Yes" : "No"}</h5>
           {!task.complete && (
             <Button
-              onClick={() => handleClick(task._id)}
+              onClick={() => props.taskClick(task._id)}
               className={classes.button}
               type="button"
               size="large"
@@ -65,9 +53,6 @@ export default function TaskList(props) {
       </Card>
     );
   });
-  if (!user) {
-    return <div>Loading...</div>;
-  }
   return incompleteTasks.length ? (
     <div className="TaskList">{renderTasks}</div>
   ) : (

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { db } = require("../lib/db");
+const Schema = db.Schema;
 const bcrypt = require("bcrypt");
 const { petSchema } = require("./pet");
 const { todoSchema } = require("./todo");
@@ -48,6 +48,6 @@ class newUser {
 }
 
 UserSchema.loadClass(newUser);
-let User = mongoose.model("User", UserSchema);
+let User = db.model("User", UserSchema);
 
 module.exports = User;
