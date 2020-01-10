@@ -27,7 +27,7 @@ export default function TaskList(props) {
   const renderTasks = incompleteTasks.map(function(task, index) {
     console.log(typeof task._id);
     return task && task._id && (
-      <Card className={classes.card} key={`${task._id.split('').slice(0, 4).join('')}-${index}`}>
+      <Card className={classes.card} key={task.id}>
         <CardContent>
           <h2>{task.title}</h2>
           <p>{task.description}</p>
