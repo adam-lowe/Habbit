@@ -21,16 +21,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Task() {
   const classes = useStyles();
-  const authContext = React.useContext(AuthContext);
+  const { addTask } = React.useContext(AuthContext);
   const [state, setState] = React.useState({
     error: ""
   });
 
   const handleSubmit = (title, dueDate, description) => {
-    const { user } = authContext;
-    user.todos.push({title, dueDate, description}); 
-    authContext.updateUser(user);
-    setState({...state, redirect: '/'});
+    addTask({ title, dueDate, description }).then(()=>(setState({ ...state, redirect: '/' })));
   };
   if (state.redirect) {
     return <Redirect to={{ pathname: state.redirect }} />;

@@ -20,11 +20,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Home() {
   const classes = useStyles();
-  const { user, updateUser, authToken } = useContext(AuthContext);
+  const { user, completeTask, woundPet, authToken } = useContext(AuthContext);
   const [health, setHealth] = useState(0);
   const [tasks, setTasks] = useState(user ? user.todos : []);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (!user) {
       return
     } else {
@@ -34,13 +34,16 @@ export default function Home() {
           console.log("congrats! your beloved pet is dead.")
           clearInterval(petDeathTimer)
         }
-        setHealth(prevHealth => prevHealth <= 0 ?  petDead(): prevHealth - 5);
+        woundPet().then((user)=>{
+          setHealth(prevHealth => prevHealth <= 0 ? petDead() : user.pet.health);
+        });
+        
       }, 30000);
       return function cleanup() {
         clearInterval(petDeathTimer);
       };
     }
-  }, [user])
+  }, [user, woundPet]);
 
   useEffect(() => {
     API.Users.getMe(authToken)
@@ -52,12 +55,10 @@ export default function Home() {
     .catch(error => console.log(error));
   }, [authToken]);
 
-  const completeTask = taskId => {
-    const currentTask = user.todos.find(task => task._id === taskId);
-    currentTask.complete = !currentTask.complete;
-    user.points += 5;
-    updateUser(user).then((newUser) => {
-      setTasks(newUser.todos)
+  const completeTaskClick = (event, taskId) => {
+    event.preventDefault();
+    completeTask(taskId).then((user) => {
+      setTasks(user.todos);
     });
   };
 
@@ -68,7 +69,7 @@ export default function Home() {
           <PetStatus health={health} />
         </Grid>
         <Grid item xs={12} md={8}>
-          <TaskList tasks={tasks} taskClick={completeTask} />
+          <TaskList tasks={tasks} taskClick={completeTaskClick} />
         </Grid>
       </Grid>
     </div>

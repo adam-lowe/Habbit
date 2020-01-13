@@ -1,10 +1,10 @@
 const usersController = require("express").Router();
-
-// const db = require('../../models');
-const Users = require("../../models/user");
-const { passport, JWTVerifier } = require("../../lib/passport");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+
+const Users = require("../../models/user");
+const { JWTVerifier } = require("../../lib/passport");
+
 
 usersController.post("/", (req, res) => {
   let { fullName, email, password, pet } = req.body;

@@ -36,7 +36,7 @@ db.connection.on('error', err => {
 })
 //-- Middleware --------------------------------------------------------------
 app.use(logger(LOG_MODE));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());
 

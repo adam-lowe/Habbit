@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -23,37 +23,42 @@ const useStyles = makeStyles(theme => ({
 
 export default function TaskList(props) {
   const classes = useStyles();
-  const incompleteTasks = props.tasks.filter(task => !task.complete);
-  const renderTasks = incompleteTasks.map(function(task, index) {
-    console.log(typeof task._id);
-    return task && task._id && (
-      <Card className={classes.card} key={task.id}>
-        <CardContent>
-          <h2>{task.title}</h2>
-          <p>{task.description}</p>
-          <h3>Date: {task.dueDate}</h3>
-          <h4>
-            Priority:
-            {task.priority}
-          </h4>
-          <h5>Completed: {task.complete ? "Yes" : "No"}</h5>
-          {!task.complete && (
-            <Button
-              onClick={() => props.taskClick(task._id)}
-              className={classes.button}
-              type="button"
-              size="large"
-              variant="outlined"
-              color="primary"
-            >
-              Complete Task
-            </Button>
-          )}
-        </CardContent>
-      </Card>
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    if (props.tasks) setTasks(props.tasks.filter(task => !task.complete));
+  }, [props]);
+  const renderTasks = tasks.map(function(task, index) {
+    return (
+      task &&
+      task._id && (
+        <Card className={classes.card} key={task.id}>
+          <CardContent>
+            <h2>{task.title}</h2>
+            <p>{task.description}</p>
+            <h3>Date: {task.dueDate}</h3>
+            <h4>
+              Priority:
+              {task.priority}
+            </h4>
+            <h5>Completed: {task.complete ? "Yes" : "No"}</h5>
+            {!task.complete && (
+              <Button
+                onClick={(event) => props.taskClick(event, task._id)}
+                className={classes.button}
+                type="button"
+                size="large"
+                variant="outlined"
+                color="primary"
+              >
+                Complete Task
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+      )
     );
   });
-  return incompleteTasks.length ? (
+  return tasks.length ? (
     <div className="TaskList">{renderTasks}</div>
   ) : (
     <div>
