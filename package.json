@@ -7,6 +7,7 @@
     "install": "yarn run install:client && yarn run install:server",
     "install:client": "cd client && yarn",
     "install:server": "cd server && yarn",
+    "reset": "rm -rf node_modules/ client/node_modules server/node_modules && yarn && yarn install",
     "build": "cd client && yarn build",
     "start": "node server/server.js",
     "start:dev": "concurrently -n client,server \"yarn run client:dev\" \"yarn run server:dev\"",

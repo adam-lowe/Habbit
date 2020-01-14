@@ -13,12 +13,16 @@ The idea is that people care more about a task or chore if someone is depending 
 Habbit is a full stack web application made primarily in REACT with front end styling done in MATERIALIZE.
 We used a mix of Yarn and NPM technologies, with a server built using EXPRESS and MONGOOSE for the db.
 
-# The Habbit team consists of
+## The Habbit team consists of
 
-## [Christina Burt](https://github.com/TwoByteKitty)
+### [Christina Burt](https://github.com/TwoByteKitty)
 
-## [Adam Lowe](https://github.com/adam-lowe)
+### [Adam Lowe](https://github.com/adam-lowe)
 
-## [Thomas Beaman](https://github.com/thoughtsinflight)
+### [Thomas Beaman](https://github.com/thoughtsinflight)
 
-## [Nicholas Marotta](https://github.com/Th3Freeman)
+### [Nicholas Marotta](https://github.com/Th3Freeman)
+
+## Deployed Application
+
+### [Habbit](https://pacific-woodland-65790.herokuapp.com/)
