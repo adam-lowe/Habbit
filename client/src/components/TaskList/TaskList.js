@@ -5,6 +5,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 
+import Moment from "moment";
+
 const useStyles = makeStyles(theme => ({
   button: {
     margin: 10
@@ -35,11 +37,11 @@ export default function TaskList(props) {
           <CardContent>
             <h2>{task.title}</h2>
             <p>{task.description}</p>
-            <h3>Date: {task.dueDate}</h3>
-            <h4>
+            <h3>Due Date: {Moment(task.dueDate).format("dddd, MMMM Do YYYY, h:mm A")}</h3>
+            {/* <h4>
               Priority:
               {task.priority}
-            </h4>
+            </h4> */}
             <h5>Completed: {task.complete ? "Yes" : "No"}</h5>
             {!task.complete && (
               <Button

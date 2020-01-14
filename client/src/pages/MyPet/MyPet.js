@@ -38,10 +38,14 @@ export default function MyPet() {
           console.log("congrats! your beloved pet is dead.")
           clearInterval(petDeathTimer)
         }
-        woundPet().then((user)=>{
-          setHealth(prevHealth => prevHealth <= 0 ? petDead() : user.pet.health);
-        });
-      }, 30000);
+        if (user.pet.health > 0) {
+          woundPet().then((user)=>{
+            setHealth(user.pet.health);
+          });
+        } else {
+          petDead();
+        }
+      }, 60000);
       return function cleanup() {
         clearInterval(petDeathTimer);
       };

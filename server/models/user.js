@@ -29,7 +29,7 @@ const UserSchema = new Schema({
   points: { type: Number, required: true, default: 10 },
   todos: [todoSchema],
   pet: petSchema,
-});
+}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 class newUser {
   constructor({ _id, fullName, email, password, pet, todos, points }) {
