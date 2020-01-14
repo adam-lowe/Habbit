@@ -27,9 +27,60 @@ class App extends Component {
       return API.Users.updateMe(this.state.auth.authToken, user)
         .then(response => response.data)
         .then(newUser => {
-          console.log(newUser);
           this.setState(prevState => {
-            prevState.auth.user = user;
+            prevState.auth.user = newUser;
+            return { auth: { ...prevState.auth } };
+          });
+          return this.state.auth.user;
+        })
+        .catch(err => console.log(err));
+    };
+
+    this.addTask = task => {
+      return API.Tasks.createOne(this.state.auth.authToken, task)
+        .then(response => response.data)
+        .then(newUser => {
+          this.setState(prevState => {
+            prevState.auth.user = newUser;
+            return { auth: { ...prevState.auth } };
+          });
+          return this.state.auth.user;
+        })
+        .catch(err => console.log(err));
+    };
+
+    this.completeTask = taskId => {
+      return API.Tasks.completeOne(this.state.auth.authToken, taskId)
+        .then(response => response.data)
+        .then(newUser => {
+          this.setState(prevState => {
+            prevState.auth.user = newUser;
+            return { auth: { ...prevState.auth } };
+          });
+          return this.state.auth.user;
+        })
+        .catch(err => console.log(err));
+    };
+
+    this.woundPet = taskId => {
+      return API.Pets.wound(this.state.auth.authToken)
+        .then(response => response.data)
+        .then(newUser => {
+          this.setState(prevState => {
+            prevState.auth.user = newUser;
+            return { auth: { ...prevState.auth } };
+          });
+          return this.state.auth.user;
+        })
+        .catch(err => console.log(err));
+    };
+
+    this.healPet = points => {
+      return API.Pets.heal(this.state.auth.authToken, points)
+        .then(response => response.data)
+        .then(newUser => {
+          this.setState(prevState => {
+            prevState.auth.user = newUser;
             return { auth: { ...prevState.auth } };
           });
           return this.state.auth.user;
@@ -44,19 +95,22 @@ class App extends Component {
       }));
     };
 
-    this.handleLogout = (authToken) => {
+    this.handleLogout = authToken => {
       API.Users.logout(authToken);
       TokenStore.clearToken();
       this.setState(prevState => ({
         auth: { ...prevState.auth, user: undefined, authToken: undefined }
       }));
-      
     };
     this.state = {
       auth: {
         user: undefined,
         authToken: TokenStore.getToken(),
         updateUser: this.updateUser,
+        addTask: this.addTask,
+        completeTask: this.completeTask,
+        woundPet: this.woundPet,
+        healPet: this.healPet,
         onLogin: this.handleLogin,
         onLogout: this.handleLogout
       }

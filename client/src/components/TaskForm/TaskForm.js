@@ -8,17 +8,19 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
-import EmailSharpIcon from "@material-ui/icons/EmailSharp";
 
-import ShortTextSharpIcon from '@material-ui/icons/ShortTextSharp';
-import EventNoteSharpIcon from '@material-ui/icons/EventNoteSharp';
+
+import EmailSharpIcon from "@material-ui/icons/EmailSharp";
+import ShortTextSharpIcon from "@material-ui/icons/ShortTextSharp";
+import EventNoteSharpIcon from "@material-ui/icons/EventNoteSharp";
+
 
 const useStyles = makeStyles(theme => ({
   button: {
     margin: "auto"
   },
   card: {
-    minWidth: 275,
+    minWidth: 275
   },
   form: {
     flexGrow: 1
@@ -69,15 +71,13 @@ export default function TaskForm(props) {
             <Typography
               className="TaskTitle"
               color="textSecondary"
-              variant="h3" 
+              variant="h3"
               gutterBottom
             >
               Create a New Task:
             </Typography>
-
             <Grid container spacing={3}>
-
-            <Grid item xs={12}>
+              <Grid item xs={12}>
                 <TextField
                   id="task-title-input"
                   name="title"
@@ -136,7 +136,6 @@ export default function TaskForm(props) {
                   }}
                 />
               </Grid>
-
             </Grid>
           </CardContent>
           <CardActions>

@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
+import API from "../../lib/API";
 import AuthContext from "../../contexts/AuthContext";
 import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
 import PetStatus from "../../components/PetStatus/PetStatus";
@@ -21,9 +22,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function MyPet() {
   const classes = useStyles();
-  const { user } = useContext(AuthContext);
-  const [health, setHealth] = useState(100);
-  const [points, setPoints] = useState(60);
+  const { user, woundPet, healPet, authToken } = useContext(AuthContext);
+  const [health, setHealth] = useState(0);
+  const [points, setPoints] = useState(0);
   const [error] = React.useState({ message: "" });
   
   useEffect(()=> {
@@ -37,17 +38,35 @@ export default function MyPet() {
           console.log("congrats! your beloved pet is dead.")
           clearInterval(petDeathTimer)
         }
-        setHealth(prevHealth => prevHealth <= 0 ?  petDead(): prevHealth - 5);
-      }, 30000);
+        if (user.pet.health > 0) {
+          woundPet().then((user)=>{
+            setHealth(user.pet.health);
+          });
+        } else {
+          petDead();
+        }
+      }, 60000);
       return function cleanup() {
         clearInterval(petDeathTimer);
       };
     }
-  }, [user])
+  }, [user, woundPet])
 
-  const handleSubmit = () => {
-    user.points -= parseInt(points);
-    setHealth(prevHealth => prevHealth + parseInt(points))
+  useEffect(() => {
+    API.Users.getMe(authToken)
+    .then(response => response.data)
+    .then(user => {
+      setPoints(user.points);
+      setHealth(user.pet.health);
+    })
+    .catch(error => console.log(error));
+  }, [authToken]);
+
+  const healPetClick = (points) => {
+    healPet(points).then(user => {
+      setPoints(user.points)
+      setHealth(user.pet.health)
+    })
   };
 
   const handleInputChange = event => {
@@ -60,9 +79,6 @@ export default function MyPet() {
     setPoints(value);
   };
   
-  if (!user) {
-    return <div>Loading...</div>;
-  }
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -81,7 +97,7 @@ export default function MyPet() {
             <PetEnhancer
               points={points}
               handleInputChange={handleInputChange}
-              onSubmit={handleSubmit}
+              onSubmit={() => (healPetClick(points))}
             />
           </Paper>
         </Grid>

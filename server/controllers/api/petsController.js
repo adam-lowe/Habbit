@@ -11,6 +11,34 @@ router.get("/", JWTVerifier, (req, res) => {
     .catch(err => res.status(422).json(err));
 });
 
+
+router.get("/wound", JWTVerifier, (req, res) => {
+  Users.findById(req.user._id)
+  .then(user => {
+    const pet = user.pet;
+    pet.health -= 5;
+    user.save().then(user => {
+      delete user.password;
+      res.json(user);
+    });
+  })
+  .catch(err => res.status(500).json(err));
+});
+
+router.get("/heal/:points", JWTVerifier, (req, res) => {
+  Users.findById(req.user._id)
+  .then(user => {
+    const pet = user.pet;
+    pet.health = pet.health + parseInt(req.params.points);
+    user.points = user.points - parseInt(req.params.points);
+    user.save().then(user => {
+      delete user.password;
+      res.json(user);
+    });
+  })
+  .catch(err => res.status(500).json(err));
+});
+
 router.get("/:id", JWTVerifier, (req, res) => {
   Pet
     .findById(req.params.id)

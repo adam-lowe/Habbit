@@ -39,58 +39,38 @@ export default {
     }
   },
 
-  Secrets: {
-    getAll: function(authToken) {
-      return axios.get("/api/secrets", {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      });
-    }
-  },
-
   Tasks: {
-    // Gets all tasks
-    getAll: function(authToken) {
-      return axios.get("/api/todos", {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      });
-    },
-    // Gets the task with the given id
-    getOne: function(authToken, id) {
-      return axios.get("/api/todos/" + id, {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      });
-    },
-    // Deletes the task with the given id
-    deleteOne: function(authToken, id) {
-      return axios.delete("/api/todos/" + id, {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      });
-    },
     // Saves a task to the database
     createOne: function(authToken, todo) {
-      return axios.post("/api/todos", todo, {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      });
-    },
-    updateOne: function(authToken, todo) {
-      return axios.put(
+      return axios.post(
         "/api/todos",
+        { ...todo },
         {
           headers: {
             Authorization: `Bearer ${authToken}`
           }
-        },
-        todo
+        }
+      );
+    },
+    updateOne: function(authToken, todo) {
+      return axios.put(
+        "/api/todos",
+        { ...todo },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          }
+        }
+      );
+    },
+    completeOne: function(authToken, todoId) {
+      return axios.get(
+        `/api/todos/complete/${todoId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          }
+        }
       );
     }
   },
@@ -130,6 +110,20 @@ export default {
     },
     updateOne: function(authToken, pet) {
       return axios.put("/api/pets", pet, {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
+    },
+    wound: function(authToken) {
+      return axios.get("/api/pets/wound", {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
+    },
+    heal: function(authToken, points) {
+      return axios.get(`/api/pets/heal/${points}`, {
         headers: {
           Authorization: `Bearer ${authToken}`
         }
