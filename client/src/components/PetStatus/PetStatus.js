@@ -28,7 +28,7 @@ export default function PetStatus(props) {
         <div className='PetStatus'>
             <Card className={classes.card}>
                 <CardContent>
-                    <img className={classes.img} src={Habbit} alt="Kitten" />
+                    <img className={classes.img} src={Habbit} alt="Your Pet" />
                     <Line className={classes.line} percent={props.health} strokeWidth="5" trailColor="#000000" strokeLinecap="round" strokeColor="#3f51b5" />
                 </CardContent>
             </Card>
