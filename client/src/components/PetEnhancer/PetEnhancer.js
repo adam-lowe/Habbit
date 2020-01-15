@@ -9,11 +9,13 @@ import AuthContext from "../../contexts/AuthContext";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: 10
+    margin: 10,
+    "box-shadow": theme.shadows[9]
   },
   card: {
     minWidth: 275,
-    margin: 20
+    margin: 20,
+    "box-shadow": theme.shadows[12]
   },
   form: {
     flexGrow: 1
@@ -30,7 +32,7 @@ export default function PetEnhancer(props) {
   return (
     <div className="PetEnhancer">
       <Card className={classes.card}>
-        <Typography className="PointsTotal" color="textSecondary" gutterBottom>
+        <Typography className="PointsTotal" color="textSecondary" variant="h4" gutterBottom>
           You have {user ? user.points : 0} points left
         </Typography>
         <CardContent>

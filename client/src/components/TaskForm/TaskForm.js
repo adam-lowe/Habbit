@@ -17,11 +17,13 @@ import EventNoteSharpIcon from "@material-ui/icons/EventNoteSharp";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: "auto"
+    margin: "auto",
+    "box-shadow": theme.shadows[9]
   },
   card: {
     minWidth: 275,
-    margin: 20
+    margin: 20,
+    "box-shadow": theme.shadows[12]
   },
   form: {
     flexGrow: 1
@@ -77,7 +79,7 @@ export default function TaskForm(props) {
             >
               Create a New Task:
             </Typography>
-            <Grid container spacing={3}>
+            <Grid container direction="column" spacing={3}>
               <Grid item xs={12}>
                 <TextField
                   id="task-title-input"

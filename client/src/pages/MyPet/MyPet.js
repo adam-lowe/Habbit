@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 
 import API from "../../lib/API";
 import AuthContext from "../../contexts/AuthContext";
-import ErrorMsg from "../../components/ErrorMsg/ErrorMsg";
 import PetStatus from "../../components/PetStatus/PetStatus";
 import PetEnhancer from "../../components/PetEnhancer/PetEnhancer";
 
@@ -17,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  petContainer: {
+    justifyContent: "center"
   }
 }));
 
@@ -81,18 +83,13 @@ export default function MyPet() {
   
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        {error.message && (
-          <Grid item xs={12}>
-            <ErrorMsg className={classes.margin} message={error.message} />
-          </Grid>
-        )}
-        <Grid item xs={12}>
+      <Grid container spacing={2} className={classes.petContainer}>
+        <Grid item xs={12} sm={10}>
           <Paper className={classes.paper}>
             <PetStatus health={health} />
           </Paper>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={10}>
           <Paper className={classes.paper}>
             <PetEnhancer
               points={points}

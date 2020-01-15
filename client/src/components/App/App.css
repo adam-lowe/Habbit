@@ -18,18 +18,20 @@ body {
 .TaskCard {
   margin: 20px;
 }
-
+.PointsTotal {
+  margin-top: 30px !important;
+}
 
 .app {
   text-align: center;
   height: 100%;
 }
 .header{
-  flex: 0 1 auto;
+  /* flex: 0 1 auto; */
 }
 .main{
   margin-top: 30px !important;
-  flex: 1 1 auto;
+  /* flex: 1 1 auto; */
 }
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

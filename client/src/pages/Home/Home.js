@@ -1,16 +1,24 @@
 import React, { useState, useContext, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
+import Paper from "@material-ui/core/Paper";
 import API from "../../lib/API";
 import AuthContext from "../../contexts/AuthContext";
 import PetStatus from "../../components/PetStatus/PetStatus";
 import TaskList from "../../components/TaskList/TaskList";
 
-
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
+  },
+  homeContainer: {
+    justifyContent: "center"
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary
   }
 }));
 
@@ -62,15 +70,19 @@ export default function Home() {
   };
 
   return (
-      <div className={classes.root}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
+    <div className={classes.root}>
+      <Grid container spacing={2} className={classes.homeContainer}>
+        <Grid item xs={12} md={4}>
+          <Paper className={classes.paper}>
             <PetStatus health={health} />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <TaskList tasks={tasks} taskClick={completeTaskClick} />
-          </Grid>
+          </Paper>
         </Grid>
-      </div>
+        <Grid item xs={12} md={8}>
+          <Paper className={classes.paper}>
+            <TaskList tasks={tasks} taskClick={completeTaskClick} />
+          </Paper>
+        </Grid>
+      </Grid>
+    </div>
   );
 }

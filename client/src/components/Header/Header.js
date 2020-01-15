@@ -31,12 +31,12 @@ import ProjectLogo from "../Assets/Artboard_1.png";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    "box-shadow": theme.shadows[15]
+    "box-shadow": theme.shadows[20]
   },
   menuButton: {
     marginRight: theme.spacing(2)
   },
-  title: {
+  imgContainer: {
     flexGrow: 1
   },
   list: {
@@ -152,8 +152,9 @@ export default function MenuAppBar(props) {
               </SwipeableDrawer>
             </div>
           )}
+          <div className={classes.imgContainer}>
             <img className={classes.img} src={ProjectLogo} alt="Habbit logo" />
-          <Typography variant="h3" className={classes.title}></Typography>
+          </div>
           {user && (
             <div>
               <IconButton
