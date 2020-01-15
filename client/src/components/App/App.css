@@ -1,7 +1,38 @@
-.App {
-  text-align: center;
+html,body, #root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+body {
+  background-image: url('../Assets/lighterwhitewood.jpg');
+}
+.completeTitle {
+  font-size: 250%;
+}
+.completeMsg {
+  font-size: 175%;
+}
+.completeLink {
+  font-size: 140%;
+}
+.TaskCard {
+  margin: 20px;
+}
+.PointsTotal {
+  margin-top: 30px !important;
 }
 
+.app {
+  text-align: center;
+  height: 100%;
+}
+.header{
+  /* flex: 0 1 auto; */
+}
+.main{
+  margin-top: 30px !important;
+  /* flex: 1 1 auto; */
+}
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
