@@ -10,12 +10,15 @@ const useStyles = makeStyles(theme => ({
     },
     card: {
         minWidth: 275,
-        margin: 20
+        margin: 20,
+        padding: 10,
+        "box-shadow": theme.shadows[15]
     },
     img: {
-        margin: 20,
-        height: 400,
-        width: 525
+        width: "100%",
+        maxWidth: 400,
+        maxHeight:400,
+        "margin-top": 25
     },
     line: {
         margin: 15
@@ -28,9 +31,14 @@ export default function PetStatus(props) {
         <div className='PetStatus'>
             <Card className={classes.card}>
                 <CardContent>
+<<<<<<< HEAD
                     <img className={classes.img} src={Habbit} alt="Your Pet" />
                     <p> {props.health}/100 </p>
                     <Line className={classes.line} percent={props.health} strokeWidth="5" trailColor="#000000" strokeLinecap="round" strokeColor="#3f51b5" />
+=======
+                    <img className={classes.img} src={Habbit} alt="pet image" />
+                    <Line className={classes.line} percent={props.health} strokeWidth="3" trailColor="#000000" strokeLinecap="round" strokeColor="#008000" />
+>>>>>>> some styling done, still working on petStatus sizing issue
                 </CardContent>
             </Card>
         </div>

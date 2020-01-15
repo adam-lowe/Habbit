@@ -9,14 +9,14 @@ import Moment from "moment";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: 10
+    margin: 10,
+    color: theme.palette.text.secondary,
+    "box-shadow": theme.shadows[9]
   },
   card: {
     minWidth: 275,
-    margin: 20
-  },
-  img: {
-    margin: 20
+    margin: 20,
+    "box-shadow": theme.shadows[15]
   },
   line: {
     margin: 15
@@ -37,7 +37,11 @@ export default function TaskList(props) {
           <CardContent>
             <h2>{task.title}</h2>
             <p>{task.description}</p>
-            <h3>Due Date: {Moment(task.dueDate).format("dddd, MMMM Do YYYY, h:mm A")}</h3>
+
+            <h3>
+              Due Date:{" "}
+              {Moment(task.dueDate).format("dddd, MMMM Do YYYY, h:mm A")}
+            </h3>
             {/* <h4>
               Priority:
               {task.priority}
@@ -45,7 +49,7 @@ export default function TaskList(props) {
             <h5>Completed: {task.complete ? "Yes" : "No"}</h5>
             {!task.complete && (
               <Button
-                onClick={(event) => props.taskClick(event, task._id)}
+                onClick={event => props.taskClick(event, task._id)}
                 className={classes.button}
                 type="button"
                 size="large"
@@ -64,9 +68,9 @@ export default function TaskList(props) {
     <div className="TaskList">{renderTasks}</div>
   ) : (
     <div>
-      <h2>All Tasks Completed!</h2>
-      <p>Your pet will get hungry!</p>
-      <Link to="/task">Create more tasks to complete</Link>
+      <h2 className="completeTitle">All Tasks Completed!</h2>
+      <p className="completeMsg">Your pet will get hungry!</p>
+      <Link className="completeLink" to="/task">Create more tasks to complete</Link>
     </div>
   );
 }

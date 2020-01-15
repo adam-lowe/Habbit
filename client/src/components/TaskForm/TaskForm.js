@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
     margin: "auto"
   },
   card: {
-    minWidth: 275
+    minWidth: 275,
+    margin: 20
   },
   form: {
     flexGrow: 1

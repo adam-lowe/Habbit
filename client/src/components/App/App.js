@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { teal, pink, purple } from "@material-ui/core/colors";
+import Grid from "@material-ui/core/Grid";
 
 import API from "../../lib/API";
 import TokenStore from "../../lib/TokenStore";
@@ -15,11 +18,22 @@ import Task from "../../pages/Task/Task";
 import NotFound from "../../pages/NotFound/NotFound";
 
 import "./App.css";
-/**
- * @todo Handle page title change.
- * @todo
- */
-class App extends Component {
+
+const siteTheme = createMuiTheme({
+  palette: {
+    primary: teal,
+    secondary: purple,
+    text: {
+      primary: "#000",
+      secondary: "#000"
+    }
+  },
+  shape: {
+    borderRadius: 12
+  }
+});
+
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -131,30 +145,38 @@ class App extends Component {
 
   render() {
     return (
-      <AuthContext.Provider value={this.state.auth}>
-        <div className="App">
-          {/* Header */}
-          <Header logout={this.handleLogout} />
-          {/* Pages/Views */}
-          <Switch>
-            {/* Dashboard */}
-            <PrivateRoute exact path="/" component={Home} />
-            {/* Login */}
-            <Route path="/login" component={Login} />
-            {/* User Registration */}
-            <Route path="/register" component={Register} />
-            {/* Create Task */}
-            <PrivateRoute path="/task" component={Task} />
-            {/* Edit Task */}
-            <PrivateRoute path="/task/:id" component={Task} />
-            {/* Pet Dashboard */}
-            <PrivateRoute path="/my-pet" component={MyPet} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </AuthContext.Provider>
+      <ThemeProvider theme={siteTheme}>
+        <AuthContext.Provider value={this.state.auth}>
+            <Grid
+              container
+              direction="column"
+              className="app"
+            >
+              <Grid item className="header">
+                {/* Header */}
+                <Header logout={this.handleLogout} />
+              </Grid>
+              <Grid item className="main">
+                {/* Pages/Views */}
+                <Switch>
+                  {/* Dashboard */}
+                  <PrivateRoute exact path="/" component={Home} />
+                  {/* Login */}
+                  <Route path="/login" component={Login} />
+                  {/* User Registration */}
+                  <Route path="/register" component={Register} />
+                  {/* Create Task */}
+                  <PrivateRoute path="/task" component={Task} />
+                  {/* Edit Task */}
+                  <PrivateRoute path="/task/:id" component={Task} />
+                  {/* Pet Dashboard */}
+                  <PrivateRoute path="/my-pet" component={MyPet} />
+                  <Route component={NotFound} />
+                </Switch>
+              </Grid>
+            </Grid>
+        </AuthContext.Provider>
+      </ThemeProvider>
     );
   }
 }
-
-export default App;

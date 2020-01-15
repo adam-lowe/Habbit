@@ -26,11 +26,12 @@ import PetsIcon from "@material-ui/icons/Pets";
 
 import AuthContext from "../../contexts/AuthContext";
 
-import ProjectLogo from "../Assets/Artboard_1.png"
+import ProjectLogo from "../Assets/Artboard_1.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    "box-shadow": theme.shadows[15]
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -130,7 +131,7 @@ export default function MenuAppBar(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className="toolbar">
           {user && (
             <div>
               <IconButton
@@ -151,9 +152,8 @@ export default function MenuAppBar(props) {
               </SwipeableDrawer>
             </div>
           )}
-          <img className={classes.img} src={ProjectLogo} alt="Kitten" />
-          <Typography variant="h3" className={classes.title}>
-          </Typography>
+            <img className={classes.img} src={ProjectLogo} alt="Habbit logo" />
+          <Typography variant="h3" className={classes.title}></Typography>
           {user && (
             <div>
               <IconButton
