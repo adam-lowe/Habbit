@@ -9,7 +9,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.39",
     "axios": "^0.18.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "rc-progress": "^2.5.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
